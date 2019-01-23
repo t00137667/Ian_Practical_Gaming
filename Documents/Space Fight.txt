@@ -1,0 +1,12 @@
+Main Character Movement;
+    Keyboard Movement;
+        A: "Strafe or Yaw Left"
+        D: "Strafe or Yaw Rrght"
+        W: Accelerate Forward
+        S: Deaccelerate
+        Q: Spin Character Left: Rotate and move character to the left
+        E: Spin Character Right: Rotate and move character to the right
+        
+    Mouse Movement ;
+        HorizonalAxisLeft: Sway the character to the right with a slight to strong rotation based on mouse speed
+        HorizonalAxisRight: Sway the character to the left with a slight to strong rotation based on mouse speed
