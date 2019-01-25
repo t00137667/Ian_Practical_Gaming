@@ -2,17 +2,31 @@ Spacefighter Game:
     The player controls a fighter type spacecraft and engages AI enemies with onboard weapons.
     The spacecraft will have multiple weapons and potential upgrades to the weapons and equipment on the craft.
     The enemies will spawn in waves, and the player must destroy them to proceed.
-    The player can purchase upgrades between waves
+    The player can purchase upgrades between waves.
 
 Main Character Movement;
-    Keyboard Movement;
-        A: "Strafe or Yaw Left"
-        D: "Strafe or Yaw Rrght"
-        W: Accelerate Forward
-        S: Deaccelerate
-        Q: Spin Character Left: Rotate and move character to the left
-        E: Spin Character Right: Rotate and move character to the right
+    Keyboard Controls;
+        A: "Strafe or Yaw Left".
+        D: "Strafe or Yaw Right".
+        W: Accelerate Forward.
+        S: De-accelerate.
+        Q: Spin Character Left: Rotate and move character to the left.
+        E: Spin Character Right: Rotate and move character to the right.
         
-    Mouse Movement ;
-        HorizonalAxisLeft: Sway the character to the right with a slight to strong rotation based on mouse speed
-        HorizonalAxisRight: Sway the character to the left with a slight to strong rotation based on mouse speed
+    Mouse Controls;
+        HorizonalAxisLeft : Sway the character to the right with a slight to strong rotation based on mouse speed.
+        HorizonalAxisRight : Sway the character to the left with a slight to strong rotation based on mouse speed.
+        VerticalAxisUp : Rotate the character to face upwards.
+        VerticalAxisDown : Rotate the character to face downwards.
+        LeftClick : Fire the character's weapon.
+      
+    Methods;
+        Accelerate : Accelerates the character forward at a set rate.
+        RotateCharacter : Determines the direction to rotate the 
+        RotateClockwise : Rotates the character horizontally clockwise.
+        RotateAntiClockwise : Rotates the character horizontally anti-clockwise.
+        SpinClockwise : Rotates the character vertically clockwise.
+        SpinAntiClockwise : Rotates the character vertically anti-clockwise.
+        Swaying : Moves and Rotates the ship based on mouse input.
+        FireWeapon : Fires the currently selected weapon.
+        SelectWeapon : Iterates through the unlocked weapon
