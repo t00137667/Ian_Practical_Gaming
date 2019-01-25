@@ -1,3 +1,9 @@
+Spacefighter Game:
+    The player controls a fighter type spacecraft and engages AI enemies with onboard weapons.
+    The spacecraft will have multiple weapons and potential upgrades to the weapons and equipment on the craft.
+    The enemies will spawn in waves, and the player must destroy them to proceed.
+    The player can purchase upgrades between waves
+
 Main Character Movement;
     Keyboard Movement;
         A: "Strafe or Yaw Left"
