@@ -1,7 +1,8 @@
 ﻿1>------ Build started: Project: PracticalGaming, Configuration: Debug Any CPU ------
-1>C:\Users\t00137667\Desktop\Practical_Gaming\PracticalGaming\Assets\MovementControlScript.cs(10,11,10,22): warning CS0169: The field 'MovementControlScript.speedAdjust' is never used
-1>C:\Users\t00137667\Desktop\Practical_Gaming\PracticalGaming\Assets\MovementControlScript.cs(8,11,8,23): warning CS0169: The field 'MovementControlScript.turningSpeed' is never used
 1>C:\Users\t00137667\Desktop\Practical_Gaming\PracticalGaming\Assets\MovementControlScript.cs(9,11,9,22): warning CS0169: The field 'MovementControlScript.rotateSpeed' is never used
+1>C:\Users\t00137667\Desktop\Practical_Gaming\PracticalGaming\Assets\MovementControlScript.cs(8,11,8,23): warning CS0169: The field 'MovementControlScript.turningSpeed' is never used
+1>C:\Users\t00137667\Desktop\Practical_Gaming\PracticalGaming\Assets\MovementControlScript.cs(10,11,10,22): warning CS0169: The field 'MovementControlScript.speedAdjust' is never used
+1>C:\Users\t00137667\Desktop\Practical_Gaming\PracticalGaming\Assets\MovementControlScript.cs(11,11,11,23): warning CS0414: The field 'MovementControlScript.acceleration' is assigned but its value is never used
 1>C:\Users\t00137667\Desktop\Practical_Gaming\PracticalGaming\Assets\MovementControlScript.cs(7,13,7,20): warning CS0414: The field 'MovementControlScript.Vector3' is assigned but its value is never used
 1>  PracticalGaming -> C:\Users\t00137667\Desktop\Practical_Gaming\PracticalGaming\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
 ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
