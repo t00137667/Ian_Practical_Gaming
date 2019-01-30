@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MovementControlScript : MonoBehaviour {
 
-    Vector3 Vector3 = new Vector3();
+    Vector3 velocity = new Vector3();
     float turningSpeed;
-    float rotateSpeed;
+    float rotateSpeed = 100.0f;
     float speedAdjust;
     float acceleration = 2f;
 
@@ -24,6 +24,8 @@ public class MovementControlScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //Quick Implement Code to demonstrate movement
+
         // Get the horizontal and vertical axis.
         // By default they are mapped to the arrow keys.
         // The value is in the range -1 to 1
@@ -39,6 +41,9 @@ public class MovementControlScript : MonoBehaviour {
 
         // Rotate around our y-axis
         transform.Rotate(0, rotation, 0);
+
+        ShouldMove();
+        
     }
 
     /// <summary>
@@ -94,7 +99,7 @@ public class MovementControlScript : MonoBehaviour {
     /// <summary>
     /// Rotates the character Anti-Clockwise vertically
     /// </summary>
-    private void SpinAntiClockwise(string rotateSpeed)
+    private void SpinAntiClockwise(float rotateSpeed)
     {
         throw new System.NotImplementedException();
     }
@@ -121,5 +126,103 @@ public class MovementControlScript : MonoBehaviour {
     private void FireSpecial()
     {
         throw new System.NotImplementedException();
+    }
+
+    /// <summary>
+    /// Checks if the character should implement movement
+    /// </summary>
+    private void ShouldMove()
+    {
+        //throw new System.NotImplementedException();
+        if (ShouldAccelerate())
+        {
+            Debug.Log("Acceleratiing");
+        }
+        if (ShouldDeccelerate())
+        {
+            Debug.Log("Deccelerating");
+        }
+        if (ShouldStrafeLeft())
+        {
+            Debug.Log("Strafing Left");
+        }
+        if (ShouldStrafeRight())
+        {
+            Debug.Log("Strafing Right");
+        }
+        if (ShouldRollLeft())
+        {
+            SpinAntiClockwise(rotateSpeed);
+        }
+        if (ShouldRollRight())
+        {
+            SpinClockwise(rotateSpeed);
+        }
+    }
+
+    /// <summary>
+    /// Checks if the character should accelerate
+    /// </summary>
+    private bool ShouldAccelerate()
+    {
+        if (Input.GetAxis("Vertical") > 0)
+            return true;
+        else
+            return false;
+    }
+
+    /// <summary>
+    /// Checks if the character should deccelerate
+    /// </summary>
+    private bool ShouldDeccelerate()
+    {
+        if (Input.GetAxis("Vertical") < 0)
+            return true;
+        else
+            return false;
+    }
+
+    /// <summary>
+    /// Checks if the character should strafe left
+    /// </summary>
+    private bool ShouldStrafeLeft()
+    {
+        if (Input.GetAxis("Horizontal") < 0)
+            return true;
+        else
+            return false;
+    }
+
+    /// <summary>
+    /// Checks if the character should strafe right
+    /// </summary>
+    private bool ShouldStrafeRight()
+    {
+        if (Input.GetAxis("Horizontal") > 0)
+            return true;
+        else
+            return false;
+    }
+
+    /// <summary>
+    /// Checks if the character should roll left
+    /// </summary>
+    private bool ShouldRollLeft()
+    {
+        if (Input.GetKeyDown("q"))
+            return true;
+        else
+            return false;
+    }
+
+    /// <summary>
+    /// Checks if the character should roll right
+    /// </summary>
+    private bool ShouldRollRight()
+    {
+        if (Input.GetKeyDown("e"))
+            return true;
+        else
+            return false;
     }
 }
