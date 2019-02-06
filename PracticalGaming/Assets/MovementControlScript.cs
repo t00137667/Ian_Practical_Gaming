@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class MovementControlScript : MonoBehaviour {
 
-    Vector3 velocity = new Vector3();
+    Vector3 direction = new Vector3();
     float turningSpeed;
     float rotateSpeed = 100.0f;
-    float speedAdjust;
+    float speedAdjust = 5f;
     float acceleration = 2f;
 
     //Declare Keys
-
+    CameraControl ourCamera;
 
     public float speed = 10.0f;
-    public float rotationSpeed = 100.0f;
+    public float rotationSpeed = 50.0f;
+    private int move;
 
 
     // Use this for initialization
     void Start () {
         Debug.Log("I liiiive!");
+        ourCamera = Camera.main.GetComponent<CameraControl>();
 	}
 	
 	// Update is called once per frame
@@ -30,7 +32,7 @@ public class MovementControlScript : MonoBehaviour {
         // By default they are mapped to the arrow keys.
         // The value is in the range -1 to 1
         float translation = Input.GetAxis("Vertical") * speed;
-        float rotation = Input.GetAxis("Mouse X") * rotationSpeed * 0.5f;
+        float rotation = Input.GetAxis("Mouse X") * rotationSpeed;
 
         // Make it move 10 meters per second instead of 10 meters per frame...
         translation *= Time.deltaTime;
@@ -43,6 +45,7 @@ public class MovementControlScript : MonoBehaviour {
         transform.Rotate(0, rotation, 0);
 
         ShouldMove();
+        ourCamera.updatePosition(transform);
         
     }
 
@@ -60,7 +63,8 @@ public class MovementControlScript : MonoBehaviour {
     /// </summary>
     private void Accelerate(float speedAdjust)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
+        speed += speedAdjust * Time.deltaTime;
     }
 
     /// <summary>
@@ -81,7 +85,7 @@ public class MovementControlScript : MonoBehaviour {
     }
 
     /// <summary>
-    /// Rotates the character ClockwiseRotates the character Anti-Clockwise horizontally
+    /// Rotates the character Anti-Clockwise horizontally
     /// </summary>
     private void RotateAntiClockwise(float turningSpeed)
     {
@@ -136,15 +140,21 @@ public class MovementControlScript : MonoBehaviour {
         //throw new System.NotImplementedException();
         if (ShouldAccelerate())
         {
-            Debug.Log("Acceleratiing");
+            //Debug.Log("Accelerating");
+            //Debug.Log("Current Speed: " + speed);
+            Accelerate(speedAdjust);
+
         }
         if (ShouldDeccelerate())
         {
-            Debug.Log("Deccelerating");
+            //Debug.Log("Deccelerating");
+            //Debug.Log("Current Speed: " + speed);
+            Accelerate(-speedAdjust);
         }
         if (ShouldStrafeLeft())
         {
             Debug.Log("Strafing Left");
+
         }
         if (ShouldStrafeRight())
         {
@@ -224,5 +234,13 @@ public class MovementControlScript : MonoBehaviour {
             return true;
         else
             return false;
+    }
+
+    /// <summary>
+    /// Implements the moving of the character
+    /// </summary>
+    private void Move()
+    {
+        throw new System.NotImplementedException();
     }
 }
