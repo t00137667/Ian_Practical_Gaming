@@ -3,19 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementControlScript : MonoBehaviour {
+    enum ShipMovement { Normal, Rollin_Left, Rolling_Right}
 
+    ShipMovement shipIs = ShipMovement.Normal;
+    private float rollTimer;
     Vector3 direction = new Vector3();
     float turningSpeed;
     float rotateSpeed = 100.0f;
     float speedAdjust = 5f;
     float acceleration = 2f;
-
+    float rollSpeed = 360;
+    float rollLateralMovement = 40;
+    float rollVerticalMovement = 10;
     //Declare Keys
     CameraControl ourCamera;
 
     public float speed = 10.0f;
     public float rotationSpeed = 50.0f;
     private int move;
+    private float test;
+    private Vector3 startingPosition;
 
 
     // Use this for initialization
@@ -26,26 +33,71 @@ public class MovementControlScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //Quick Implement Code to demonstrate movement
 
-        // Get the horizontal and vertical axis.
-        // By default they are mapped to the arrow keys.
-        // The value is in the range -1 to 1
-        float translation = Input.GetAxis("Vertical") * speed;
-        float rotation = Input.GetAxis("Mouse X") * rotationSpeed;
 
-        // Make it move 10 meters per second instead of 10 meters per frame...
-        translation *= Time.deltaTime;
-        rotation *= Time.deltaTime;
+        switch (shipIs)
+        {
+            case ShipMovement.Normal:
 
-        // Move translation along the object's z-axis
-        transform.Translate(0, 0, translation);
 
-        // Rotate around our y-axis
-        transform.Rotate(0, rotation, 0);
+                //Quick Implement Code to demonstrate movement
 
-        ShouldMove();
-        ourCamera.updatePosition(transform);
+                // Get the horizontal and vertical axis.
+                // By default they are mapped to the arrow keys.
+                // The value is in the range -1 to 1
+                float translation = Input.GetAxis("Vertical") * speed;
+                float rotation = Input.GetAxis("Mouse X") * rotationSpeed;
+
+                // Make it move 10 meters per second instead of 10 meters per frame...
+                translation *= Time.deltaTime;
+                rotation *= Time.deltaTime;
+
+                // Move translation along the object's z-axis
+                transform.Translate(0, 0, translation);
+
+                // Rotate around our y-axis
+                transform.Rotate(0, rotation, 0);
+
+                ShouldMove();
+                ourCamera.updatePosition(transform);
+
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    shipIs = ShipMovement.Rolling_Right;
+                    test = 0;
+                    startingPosition = transform.position;
+                }
+                break;
+
+
+            case ShipMovement.Rolling_Right:
+
+                Vector3 endHorizontal = startingPosition + rollLateralMovement * transform.right;
+                Vector3 horzPosition = Vector3.Lerp(startingPosition, endHorizontal, 0.05f);
+                Vector3 verticalOrigin = transform.position + Vector3.up*rollVerticalMovement;
+                Vector3 verticalPosition;
+
+                //displacement vector = displacement * unit-vector at time t
+                verticalPosition = rollVerticalMovement * verticalOrigin.normalized * test;
+
+                transform.position = horzPosition + rollVerticalMovement * (1+Mathf.Sin(Mathf.Deg2Rad * test - (Mathf.PI/2 -0.2f)))*Vector3.up;
+                test += rollSpeed * Time.deltaTime;
+                transform.Rotate(Vector3.forward, -rollSpeed * Time.deltaTime, Space.Self);
+
+                
+
+                if (test > 360)
+                {
+                    shipIs = ShipMovement.Normal;
+                    Vector3 ang = transform.rotation.eulerAngles;
+                    transform.rotation = Quaternion.Euler(ang.x, ang.y, 0.0f);
+                }
+                break;
+
+        }
+
+
+
         
     }
 
