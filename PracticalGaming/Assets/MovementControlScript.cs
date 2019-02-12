@@ -13,8 +13,8 @@ public class MovementControlScript : MonoBehaviour {
     float speedAdjust = 5f;
     float acceleration = 2f;
     float rollSpeed = 360;
-    float rollLateralMovement = 40;
-    float rollVerticalMovement = 10;
+    float rollLateralMovement = 10;
+    float rollVerticalMovement = 5;
     //Declare Keys
     CameraControl ourCamera;
 
@@ -45,7 +45,7 @@ public class MovementControlScript : MonoBehaviour {
                 // Get the horizontal and vertical axis.
                 // By default they are mapped to the arrow keys.
                 // The value is in the range -1 to 1
-                float translation = Input.GetAxis("Vertical") * speed;
+                float translation =  speed;
                 float rotation = Input.GetAxis("Mouse X") * rotationSpeed;
 
                 // Make it move 10 meters per second instead of 10 meters per frame...
@@ -79,30 +79,7 @@ public class MovementControlScript : MonoBehaviour {
 
             case ShipMovement.Rolling_Left:
 
-                Vector3 endHorizontal = startingPosition + rollLateralMovement * transform.right;
-                Vector3 horzPosition = Vector3.Lerp(startingPosition, endHorizontal, 0.05f);
-                Vector3 verticalPosition = new Vector3(0, 0, 0);
-                //float angle = -90;
-
-                //displacement vector = displacement * unit-vector at time t
-                //verticalPosition = rollVerticalMovement * verticalOrigin.normalized * test;
-                //vertical + vertical * Sin(angle)
-
-                verticalPosition.y = rollVerticalMovement + rollVerticalMovement * Mathf.Sin(Mathf.Deg2Rad * (test - 90));
-
-                transform.position = horzPosition + verticalPosition;
-                test += rollSpeed * Time.deltaTime;
-                //angle += rollSpeed * Time.deltaTime;
-                transform.Rotate(Vector3.forward, -rollSpeed * Time.deltaTime, Space.Self);
-
-
-
-                if (test > 360)
-                {
-                    shipIs = ShipMovement.Normal;
-                    Vector3 ang = transform.rotation.eulerAngles;
-                    transform.rotation = Quaternion.Euler(ang.x, ang.y, 0.0f);
-                }
+                SpinAntiClockwise(rollSpeed);
                 break;
 
         }
@@ -161,19 +138,23 @@ public class MovementControlScript : MonoBehaviour {
     private void SpinClockwise(float rollSpeed)
     {
         Vector3 endHorizontal = startingPosition + rollLateralMovement * transform.right;
-        Vector3 horzPosition = Vector3.Lerp(startingPosition, endHorizontal, 0.05f);
-        Vector3 verticalPosition = new Vector3(0, 0, 0);
-        //float angle = -90;
+        //Vector3 horzPosition = Vector3.Lerp(startingPosition, endHorizontal, 0.1f);
+        Vector3 horzPosition = startingPosition;
 
-        //displacement vector = displacement * unit-vector at time t
-        //verticalPosition = rollVerticalMovement * verticalOrigin.normalized * test;
-        //vertical + vertical * Sin(angle)
+        //Need to move the XZ independantly of the Y 
 
+        horzPosition = horzPosition + transform.right;
+        Vector3 verticalPosition = new Vector3(0, startingPosition.y, 0);
+       
+        // Caluclate the circular motion of the y axis
         verticalPosition.y = rollVerticalMovement + rollVerticalMovement * Mathf.Sin(Mathf.Deg2Rad * (test - 90));
 
+        
+
         transform.position = horzPosition + verticalPosition;
+        transform.Translate(0, 0, speed*Time.deltaTime);
         test += rollSpeed * Time.deltaTime;
-        //angle += rollSpeed * Time.deltaTime;
+ 
         transform.Rotate(Vector3.forward, -rollSpeed * Time.deltaTime, Space.Self);
 
 
@@ -191,7 +172,30 @@ public class MovementControlScript : MonoBehaviour {
     /// </summary>
     private void SpinAntiClockwise(float rotateSpeed)
     {
-        throw new System.NotImplementedException();
+        Vector3 endHorizontal = startingPosition + rollLateralMovement * -transform.right;
+        Vector3 horzPosition = Vector3.Lerp(startingPosition, endHorizontal, 0.05f);
+        Vector3 verticalPosition = new Vector3(0, 0, 0);
+        //float angle = -90;
+
+        //displacement vector = displacement * unit-vector at time t
+        //verticalPosition = rollVerticalMovement * verticalOrigin.normalized * test;
+        //vertical + vertical * Sin(angle)
+
+        verticalPosition.y = rollVerticalMovement + rollVerticalMovement * Mathf.Sin(Mathf.Deg2Rad * (test - 90));
+
+        transform.position = horzPosition + verticalPosition;
+        test += rollSpeed * Time.deltaTime;
+        //angle += rollSpeed * Time.deltaTime;
+        transform.Rotate(Vector3.forward, rollSpeed * Time.deltaTime, Space.Self);
+
+
+
+        if (test > 360)
+        {
+            shipIs = ShipMovement.Normal;
+            Vector3 ang = transform.rotation.eulerAngles;
+            transform.rotation = Quaternion.Euler(ang.x, ang.y, 0.0f);
+        }
     }
 
     /// <summary>
@@ -248,11 +252,17 @@ public class MovementControlScript : MonoBehaviour {
         }
         if (ShouldRollLeft())
         {
-            SpinAntiClockwise(rotateSpeed);
+            shipIs = ShipMovement.Rolling_Left;
+            test = 0;
+            startingPosition = transform.position;
+            //SpinAntiClockwise(rotateSpeed);
         }
         if (ShouldRollRight())
         {
-            SpinClockwise(rotateSpeed);
+            shipIs = ShipMovement.Rolling_Right;
+            test = 0;
+            startingPosition = transform.position;
+            //SpinClockwise(rotateSpeed);
         }
     }
 
