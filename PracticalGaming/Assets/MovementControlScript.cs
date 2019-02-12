@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementControlScript : MonoBehaviour {
-    enum ShipMovement { Normal, Rollin_Left, Rolling_Right}
+    enum ShipMovement { Normal, Rolling_Left, Rolling_Right}
 
     ShipMovement shipIs = ShipMovement.Normal;
     private float rollTimer;
@@ -72,19 +72,30 @@ public class MovementControlScript : MonoBehaviour {
 
             case ShipMovement.Rolling_Right:
 
+                SpinClockwise(rollSpeed);
+                break;
+
+
+
+            case ShipMovement.Rolling_Left:
+
                 Vector3 endHorizontal = startingPosition + rollLateralMovement * transform.right;
                 Vector3 horzPosition = Vector3.Lerp(startingPosition, endHorizontal, 0.05f);
-                Vector3 verticalOrigin = transform.position + Vector3.up*rollVerticalMovement;
-                Vector3 verticalPosition;
+                Vector3 verticalPosition = new Vector3(0, 0, 0);
+                //float angle = -90;
 
                 //displacement vector = displacement * unit-vector at time t
-                verticalPosition = rollVerticalMovement * verticalOrigin.normalized * test;
+                //verticalPosition = rollVerticalMovement * verticalOrigin.normalized * test;
+                //vertical + vertical * Sin(angle)
 
-                transform.position = horzPosition + rollVerticalMovement * (1+Mathf.Sin(Mathf.Deg2Rad * test - (Mathf.PI/2 -0.2f)))*Vector3.up;
+                verticalPosition.y = rollVerticalMovement + rollVerticalMovement * Mathf.Sin(Mathf.Deg2Rad * (test - 90));
+
+                transform.position = horzPosition + verticalPosition;
                 test += rollSpeed * Time.deltaTime;
+                //angle += rollSpeed * Time.deltaTime;
                 transform.Rotate(Vector3.forward, -rollSpeed * Time.deltaTime, Space.Self);
 
-                
+
 
                 if (test > 360)
                 {
@@ -147,9 +158,32 @@ public class MovementControlScript : MonoBehaviour {
     /// <summary>
     /// Rotates the character Clockwise vertically
     /// </summary>
-    private void SpinClockwise(float rotateSpeed)
+    private void SpinClockwise(float rollSpeed)
     {
-        throw new System.NotImplementedException();
+        Vector3 endHorizontal = startingPosition + rollLateralMovement * transform.right;
+        Vector3 horzPosition = Vector3.Lerp(startingPosition, endHorizontal, 0.05f);
+        Vector3 verticalPosition = new Vector3(0, 0, 0);
+        //float angle = -90;
+
+        //displacement vector = displacement * unit-vector at time t
+        //verticalPosition = rollVerticalMovement * verticalOrigin.normalized * test;
+        //vertical + vertical * Sin(angle)
+
+        verticalPosition.y = rollVerticalMovement + rollVerticalMovement * Mathf.Sin(Mathf.Deg2Rad * (test - 90));
+
+        transform.position = horzPosition + verticalPosition;
+        test += rollSpeed * Time.deltaTime;
+        //angle += rollSpeed * Time.deltaTime;
+        transform.Rotate(Vector3.forward, -rollSpeed * Time.deltaTime, Space.Self);
+
+
+
+        if (test > 360)
+        {
+            shipIs = ShipMovement.Normal;
+            Vector3 ang = transform.rotation.eulerAngles;
+            transform.rotation = Quaternion.Euler(ang.x, ang.y, 0.0f);
+        }
     }
 
     /// <summary>
