@@ -13,7 +13,7 @@ public class MovementControlScript : MonoBehaviour {
     float speedAdjust = 5f;
     float acceleration = 2f;
     float rollSpeed = 360;
-    float rollLateralMovement = 10;
+    float rollLateralMovement = 40;
     float rollVerticalMovement = 5;
     //Declare Keys
     CameraControl ourCamera;
@@ -137,22 +137,18 @@ public class MovementControlScript : MonoBehaviour {
     /// </summary>
     private void SpinClockwise(float rollSpeed)
     {
-        Vector3 endHorizontal = startingPosition + rollLateralMovement * transform.right;
-        //Vector3 horzPosition = Vector3.Lerp(startingPosition, endHorizontal, 0.1f);
-        Vector3 horzPosition = startingPosition;
-
-        //Need to move the XZ independantly of the Y 
-
-        horzPosition = horzPosition + transform.right;
+        Vector3 horzPosition = new Vector3(transform.position.x,0,transform.position.z);
         Vector3 verticalPosition = new Vector3(0, startingPosition.y, 0);
-       
+
         // Caluclate the circular motion of the y axis
         verticalPosition.y = rollVerticalMovement + rollVerticalMovement * Mathf.Sin(Mathf.Deg2Rad * (test - 90));
 
+        //Need to move the XZ independantly of the Y. transform.right cannot be used because of object rotation
+        horzPosition = horzPosition + (transform.forward * speed * Time.deltaTime) + (-transform.right * rollLateralMovement * Time.deltaTime);
+        horzPosition.y = 0;
         
-
         transform.position = horzPosition + verticalPosition;
-        transform.Translate(0, 0, speed*Time.deltaTime);
+        
         test += rollSpeed * Time.deltaTime;
  
         transform.Rotate(Vector3.forward, -rollSpeed * Time.deltaTime, Space.Self);
@@ -172,20 +168,20 @@ public class MovementControlScript : MonoBehaviour {
     /// </summary>
     private void SpinAntiClockwise(float rotateSpeed)
     {
-        Vector3 endHorizontal = startingPosition + rollLateralMovement * -transform.right;
-        Vector3 horzPosition = Vector3.Lerp(startingPosition, endHorizontal, 0.05f);
-        Vector3 verticalPosition = new Vector3(0, 0, 0);
-        //float angle = -90;
+        Vector3 horzPosition = new Vector3(transform.position.x, 0, transform.position.z);
+        Vector3 verticalPosition = new Vector3(0, startingPosition.y, 0);
 
-        //displacement vector = displacement * unit-vector at time t
-        //verticalPosition = rollVerticalMovement * verticalOrigin.normalized * test;
-        //vertical + vertical * Sin(angle)
-
+        // Caluclate the circular motion of the y axis
         verticalPosition.y = rollVerticalMovement + rollVerticalMovement * Mathf.Sin(Mathf.Deg2Rad * (test - 90));
 
+        //Need to move the XZ independantly of the Y. transform.right cannot be used because of object rotation
+        horzPosition = horzPosition + (transform.forward * speed * Time.deltaTime) + (transform.right * rollLateralMovement * Time.deltaTime);
+        horzPosition.y = 0;
+
         transform.position = horzPosition + verticalPosition;
+
         test += rollSpeed * Time.deltaTime;
-        //angle += rollSpeed * Time.deltaTime;
+
         transform.Rotate(Vector3.forward, rollSpeed * Time.deltaTime, Space.Self);
 
 
