@@ -65,16 +65,17 @@ public class MovementControlScript : MonoBehaviour {
                 Vector3 left = Vector3.left;
                 Vector3 right = Vector3.right;
 
-                transform.Rotate(0, rotation, 0);
+                transform.Rotate(0, rotation, bank);
                 //transform.LookAt(transform.position + transform.forward,   ) ;
                 
-                if (Input.GetAxis("Mouse X") == 0)
+                if (Input.GetAxis("Mouse X") == 0 && Mathf.Abs(transform.rotation.eulerAngles.z) > 0)
                 {
                     Vector3 levelled = transform.forward;
                     levelled.y = 0;
                     time += Time.deltaTime;
+                    Debug.Log(time);
                     if (time > 1) { time = 0.0f; }
-                    transform.forward = Vector3.Lerp(transform.forward, levelled.normalized, time);
+                    transform.forward = Vector3.Slerp(transform.forward, levelled.normalized, time);
                 }
                 
                 
