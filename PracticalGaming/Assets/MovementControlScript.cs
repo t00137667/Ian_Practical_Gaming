@@ -58,24 +58,28 @@ public class MovementControlScript : MonoBehaviour {
                 // Move translation along the object's z-axis
                 transform.Translate(0, 0, translation);
 
-                float bank = rotation;
-                if (Mathf.Abs(transform.rotation.eulerAngles.z) > 90)
+                float bank = Input.GetAxis("Mouse X") * 10;
+                if (Mathf.Abs(transform.rotation.eulerAngles.z) > 85 || Mathf.Abs(transform.rotation.eulerAngles.z) < -85)
                     bank = 0;
                 // Rotate around our y-axis
-                Vector3 left = Vector3.left;
-                Vector3 right = Vector3.right;
+                if (rotation != 0)
+                transform.Rotate(0, rotation, 0, Space.World);
+                Quaternion level = transform.rotation;
 
-                transform.Rotate(0, rotation, bank);
-                //transform.LookAt(transform.position + transform.forward,   ) ;
-                
-                if (Input.GetAxis("Mouse X") == 0 && Mathf.Abs(transform.rotation.eulerAngles.z) > 0)
+
+                //Bank the ship by rotating on its z-axis
+                if (bank != 0)
                 {
-                    Vector3 levelled = transform.forward;
-                    levelled.y = 0;
+                    transform.rotation = Quaternion.Euler(0, 0, bank);
+                }
+                //transform.Rotate(0, 0, -bank);
+                
+                if (Input.GetAxis("Mouse X") == 0 && (Mathf.Abs(transform.rotation.eulerAngles.z) > 0 || Mathf.Abs(transform.rotation.eulerAngles.z) < 0))
+                {
                     time += Time.deltaTime;
                     Debug.Log(time);
                     if (time > 1) { time = 0.0f; }
-                    transform.forward = Vector3.Slerp(transform.forward, levelled.normalized, time);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, level, time);
                 }
                 
                 
