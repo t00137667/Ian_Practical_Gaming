@@ -10,7 +10,7 @@ public class MovementControlScript : MonoBehaviour {
     private float scriptTimer = 0;
     float time = 0;
     float turningSpeed;
-    float rotateSpeed = 100.0f;
+    float rotateSpeed = 5.0f;
     float speedAdjust = 5f;
     float strafeSpeed = 5f;
     float rollSpeed = 360;
@@ -58,28 +58,26 @@ public class MovementControlScript : MonoBehaviour {
                 // Move translation along the object's z-axis
                 transform.Translate(0, 0, translation);
 
-                float bank = Input.GetAxis("Mouse X") * 10;
-                if (Mathf.Abs(transform.rotation.eulerAngles.z) > 85 || Mathf.Abs(transform.rotation.eulerAngles.z) < -85)
+                float bank = Input.GetAxis("Mouse X") * rotateSpeed;
+
+                //Try prevent extreme rotations
+                if (Vector3.Dot(Vector3.up, transform.up) < 0)
                     bank = 0;
                 // Rotate around our y-axis
-                if (rotation != 0)
                 transform.Rotate(0, rotation, 0, Space.World);
-                Quaternion level = transform.rotation;
 
+                //Set up a level rotation to rotate back to
+                Quaternion level = Quaternion.LookRotation(transform.forward, Vector3.up);
 
-                //Bank the ship by rotating on its z-axis
-                if (bank != 0)
-                {
-                    transform.rotation = Quaternion.Euler(0, 0, bank);
-                }
-                //transform.Rotate(0, 0, -bank);
+                //bank the ship
+                transform.Rotate(0, 0, -bank);
                 
                 if (Input.GetAxis("Mouse X") == 0 && (Mathf.Abs(transform.rotation.eulerAngles.z) > 0 || Mathf.Abs(transform.rotation.eulerAngles.z) < 0))
                 {
                     time += Time.deltaTime;
                     Debug.Log(time);
                     if (time > 1) { time = 0.0f; }
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, level, time);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, level, 0.05f);
                 }
                 
                 
@@ -102,6 +100,7 @@ public class MovementControlScript : MonoBehaviour {
             case ShipMovement.Rolling_Right:
 
                 SpinClockwise(rollSpeed);
+                ourCamera.updatePosition(transform);
                 break;
 
 
@@ -109,6 +108,7 @@ public class MovementControlScript : MonoBehaviour {
             case ShipMovement.Rolling_Left:
 
                 SpinAntiClockwise(rollSpeed);
+                ourCamera.updatePosition(transform);
                 break;
 
         }
