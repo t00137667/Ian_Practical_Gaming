@@ -10,8 +10,9 @@ public class MovementControlScript : MonoBehaviour {
     private float scriptTimer = 0;
     float time = 0;
     float turningSpeed;
-    float rotateSpeed = 5.0f;
+    float rotateSpeed = 2.0f;
     float speedAdjust = 5f;
+    float maxSpeed = 50f;
     float strafeSpeed = 5f;
     float rollSpeed = 360;
     float rollLateralMovement = 40;
@@ -58,6 +59,7 @@ public class MovementControlScript : MonoBehaviour {
                 // Move translation along the object's z-axis
                 transform.Translate(0, 0, translation);
 
+                // Calculate a banking angle
                 float bank = Input.GetAxis("Mouse X") * rotateSpeed;
 
                 //Try prevent extreme rotations
@@ -132,8 +134,16 @@ public class MovementControlScript : MonoBehaviour {
     /// </summary>
     private void Accelerate(float speedAdjust)
     {
-        //throw new System.NotImplementedException();
-        speed += speedAdjust * Time.deltaTime;
+        if (speed >= maxSpeed && speedAdjust > 0)
+        {
+            return;
+        }
+        if (speed <= 5 && speedAdjust < 0)
+        {
+            return;
+        }
+        else
+            speed += speedAdjust * Time.deltaTime;
     }
 
     /// <summary>

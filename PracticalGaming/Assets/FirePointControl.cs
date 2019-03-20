@@ -23,4 +23,19 @@ public class FirePointControl : MonoBehaviour {
     {
         thisIsA = ProjectileType.Bullet;
     }
+
+    internal float FireRate()
+    {
+        // Returns the rate of fire of the weapon as shots per second
+        switch (thisIsA)
+        {
+            case ProjectileType.Bullet: 
+                break;
+            case ProjectileType.Missile:
+                break;
+            default:break;
+        }
+
+        return 0;
+    }
 }

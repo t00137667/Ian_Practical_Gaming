@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 492284366}
   - component: {fileID: 492284365}
   - component: {fileID: 492284364}
+  - component: {fileID: 492284368}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -276,6 +277,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &492284368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 492284363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379ede679a033ff458c5e9234deb252b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &805228793
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,6 +364,7 @@ GameObject:
   - component: {fileID: 1429975248}
   - component: {fileID: 1429975247}
   - component: {fileID: 1429975246}
+  - component: {fileID: 1429975250}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -426,6 +439,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429975250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1429975245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5458c283ceb98fd4d886371ee8f6c127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  rotationSpeed: 50
 --- !u!1 &1466771838
 GameObject:
   m_ObjectHideFlags: 0
