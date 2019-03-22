@@ -30,12 +30,12 @@ public class WeaponControl : MonoBehaviour {
             if (fpc.thisIsA == FirePointControl.ProjectileType.Bullet)
             {
                 AllBullets.Add(fpc);
-                Debug.Log(AllBullets.Count);
+                Debug.Log("Bullet Weapons: " + AllBullets.Count);
             }
             if (fpc.thisIsA == FirePointControl.ProjectileType.Missile)
             {
                 AllMissiles.Add(fpc);
-                Debug.Log(AllBullets.Count);
+                Debug.Log(message: "Missile Weapons: " + AllBullets.Count);
             }
         }
 
@@ -50,7 +50,12 @@ public class WeaponControl : MonoBehaviour {
         {
             foreach (FirePointControl fpc in AllBullets)
             {
-                fpc.Shoot();
+                if (Time.time >= fpc.timeToFire)
+                {
+                    fpc.timeToFire = Time.time + 1 / fpc.fireRate;
+                    fpc.Shoot();
+                }
+               
             }
             //firePoints[currentGunIndex].Shoot();
             Debug.Log("Pju! Pju!");

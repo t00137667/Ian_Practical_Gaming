@@ -9,13 +9,31 @@ public class FirePointControl : MonoBehaviour {
     public enum ProjectileType { Bullet, Missile, etc}
 
     public List<GameObject> projectilesTypes = new List<GameObject>();
-
     private GameObject projectileType;
+
+    // Weapon Fire Rates
+    private float fireRateBullet = 4;
+    private float fireRateMissile = 1;
+
+    public float timeToFire = 0;
+    public float fireRate = 0;
 
     public ProjectileType thisIsA;
 	// Use this for initialization
 	void Start () {
-		
+
+        switch (thisIsA)
+        {
+            case ProjectileType.Bullet:
+                projectileType = projectilesTypes[0];
+                fireRate = fireRateBullet;
+                break;
+            case ProjectileType.Missile:
+                fireRate = fireRateMissile;
+                break;
+            default:
+                break;
+        }
 	}
 	
 	// Update is called once per frame
@@ -28,29 +46,14 @@ public class FirePointControl : MonoBehaviour {
         thisIsA = ProjectileType.Bullet;
     }
 
-    internal float FireRate()
-    {
-        // Returns the rate of fire of the weapon as shots per second
-        switch (thisIsA)
-        {
-            case ProjectileType.Bullet: 
-                break;
-            case ProjectileType.Missile:
-                break;
-            default:break;
-        }
-
-        return 0;
-    }
-
     public void Shoot()
     {
         GameObject projectile;
+        Quaternion forward = transform.rotation;
         switch (thisIsA)
         {
             case ProjectileType.Bullet:
-                projectileType = projectilesTypes[0];
-                projectile = Instantiate(projectileType, transform.position, Quaternion.identity);
+                projectile = Instantiate(projectileType, transform.position, forward);
                 break;
             case ProjectileType.Missile:
                 break;
