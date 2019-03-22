@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929053cf2f96c1343a1f643820d842f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilesTypes: []
   thisIsA: 0
 --- !u!1 &248268156
 GameObject:
@@ -197,6 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929053cf2f96c1343a1f643820d842f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilesTypes: []
   thisIsA: 0
 --- !u!1 &275308674
 GameObject:
@@ -4029,6 +4031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5458c283ceb98fd4d886371ee8f6c127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayerShip: 0
   speed: 10
   rotationSpeed: 50
 --- !u!1 &1466771838

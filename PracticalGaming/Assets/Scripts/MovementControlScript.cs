@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementControlScript : MonoBehaviour {
+
+    public bool isPlayerShip = false;
+
     enum ShipMovement { Normal, Rolling_Left, Rolling_Right}
 
     ShipMovement shipIs = ShipMovement.Normal;
@@ -77,7 +80,7 @@ public class MovementControlScript : MonoBehaviour {
                 if (Input.GetAxis("Mouse X") == 0 && (Mathf.Abs(transform.rotation.eulerAngles.z) > 0 || Mathf.Abs(transform.rotation.eulerAngles.z) < 0))
                 {
                     time += Time.deltaTime;
-                    Debug.Log(time);
+                    //Debug.Log(time);
                     if (time > 1) { time = 0.0f; }
                     transform.rotation = Quaternion.Lerp(transform.rotation, level, 0.05f);
                 }
