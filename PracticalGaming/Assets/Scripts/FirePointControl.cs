@@ -18,6 +18,12 @@ public class FirePointControl : MonoBehaviour {
     public float timeToFire = 0;
     public float fireRate = 0;
 
+    private float projectileSpeedBullet = 100;
+    private float projectileSpeedMissile = 75;
+
+    public float projectileSpeed;
+
+
     public ProjectileType thisIsA;
 	// Use this for initialization
 	void Start () {
@@ -27,6 +33,7 @@ public class FirePointControl : MonoBehaviour {
             case ProjectileType.Bullet:
                 projectileType = projectilesTypes[0];
                 fireRate = fireRateBullet;
+                projectileSpeed = projectileSpeedBullet;
                 break;
             case ProjectileType.Missile:
                 fireRate = fireRateMissile;

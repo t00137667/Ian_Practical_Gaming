@@ -151,6 +151,23 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114402717637025154, guid: f805c7b2f982faf43833878e4f22ae2a,
+        type: 2}
+      propertyPath: projectileSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114402717637025154, guid: f805c7b2f982faf43833878e4f22ae2a,
+        type: 2}
+      propertyPath: projectilesTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1324041573931466, guid: d4867032b8e9e9c4192af020a3f3b41e,
+        type: 2}
+    - target: {fileID: 114885182625249400, guid: f805c7b2f982faf43833878e4f22ae2a,
+        type: 2}
+      propertyPath: projectilesTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1324041573931466, guid: d4867032b8e9e9c4192af020a3f3b41e,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f805c7b2f982faf43833878e4f22ae2a, type: 2}
   m_IsPrefabParent: 0

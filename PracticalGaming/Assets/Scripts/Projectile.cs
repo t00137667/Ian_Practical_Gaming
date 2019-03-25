@@ -7,6 +7,11 @@ public class Projectile : MonoBehaviour {
     public float speed;
     public float fireRate;
 
+    public Projectile(float speed)
+    {
+        this.speed = speed;
+    }
+
 	// Use this for initialization
 	void Start () {
 		
