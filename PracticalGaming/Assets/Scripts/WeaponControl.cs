@@ -14,7 +14,8 @@ public class WeaponControl : MonoBehaviour {
     List<FirePointControl> AllBullets;
     List<FirePointControl> AllMissiles;
 
-    // 
+    // Weapon Stagger
+   
 
     // Use this for initialization
     void Start () {
@@ -37,9 +38,8 @@ public class WeaponControl : MonoBehaviour {
                 AllMissiles.Add(fpc);
                 Debug.Log(message: "Missile Weapons: " + AllBullets.Count);
             }
-        }
 
-        
+        }
         
     }
 	
@@ -48,6 +48,9 @@ public class WeaponControl : MonoBehaviour {
 
         if (Input.GetButton(FIREWEAPON))
         {
+
+            WeaponCycle(AllBullets);
+
             foreach (FirePointControl fpc in AllBullets)
             {
                 if (Time.time >= fpc.timeToFire)
@@ -62,4 +65,9 @@ public class WeaponControl : MonoBehaviour {
         }
 		
 	}
+
+    void WeaponCycle(List<FirePointControl> weapons)
+    {
+
+    }
 }

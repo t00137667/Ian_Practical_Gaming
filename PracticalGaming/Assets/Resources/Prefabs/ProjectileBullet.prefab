@@ -250,6 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 100
   fireRate: 1
+  lifeSpan: 30
 --- !u!198 &198428208772128812
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -3820,7 +3821,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3861,7 +3862,7 @@ ParticleSystem:
     startSizeZ:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4024,7 +4025,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
-    size3D: 0
+    size3D: 1
     rotation3D: 1
     gravityModifier:
       serializedVersion: 2

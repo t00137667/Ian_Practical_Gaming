@@ -60,7 +60,9 @@ public class MovementControlScript : MonoBehaviour {
                 rotation *= Time.deltaTime;
 
                 // Move translation along the object's z-axis
-                transform.Translate(0, 0, translation);
+                //transform.position += speed * transform.forward * Time.deltaTime;
+
+                //transform.Translate(0, 0, translation);
 
                 // Calculate a banking angle
                 float bank = Input.GetAxis("Mouse X") * rotateSpeed;

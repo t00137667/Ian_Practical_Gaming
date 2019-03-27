@@ -15,6 +15,9 @@ public class FirePointControl : MonoBehaviour {
     private float fireRateBullet = 4;
     private float fireRateMissile = 1;
 
+    private float lifeSpanBullet = 30;
+    private float lifeSpanMissile = 60;
+
     public float timeToFire = 0;
     public float fireRate = 0;
 
@@ -34,6 +37,7 @@ public class FirePointControl : MonoBehaviour {
                 projectileType = projectilesTypes[0];
                 fireRate = fireRateBullet;
                 projectileSpeed = projectileSpeedBullet;
+                
                 break;
             case ProjectileType.Missile:
                 fireRate = fireRateMissile;
