@@ -40,7 +40,9 @@ public class FirePointControl : MonoBehaviour {
                 
                 break;
             case ProjectileType.Missile:
+                projectileType = projectilesTypes[1];
                 fireRate = fireRateMissile;
+                projectileSpeed = projectileSpeedMissile;
                 break;
             default:
                 break;
@@ -67,6 +69,7 @@ public class FirePointControl : MonoBehaviour {
                 projectile = Instantiate(projectileType, transform.position, forward);
                 break;
             case ProjectileType.Missile:
+                projectile = Instantiate(projectileType, transform.position, forward);
                 break;
             default:
                 break;

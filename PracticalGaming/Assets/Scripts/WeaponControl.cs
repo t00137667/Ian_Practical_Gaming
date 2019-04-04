@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponControl : MonoBehaviour {
 
     private const string FIREWEAPON = "Fire1";
-    private const string FIREMISSILE = "Space";
+    private const string FIREMISSILE = "Fire2";
 
 
     // Master List/Array
