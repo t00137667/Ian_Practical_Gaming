@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -230,6 +230,41 @@ Prefab:
     - target: {fileID: 4372542164284168, guid: 311a38372ab3bd24d92bbd5477216d0b, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198179610149557844, guid: 311a38372ab3bd24d92bbd5477216d0b,
+        type: 2}
+      propertyPath: TrailModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198179610149557844, guid: 311a38372ab3bd24d92bbd5477216d0b,
+        type: 2}
+      propertyPath: randomSeed
+      value: -1719209403
+      objectReference: {fileID: 0}
+    - target: {fileID: 198179610149557844, guid: 311a38372ab3bd24d92bbd5477216d0b,
+        type: 2}
+      propertyPath: TrailModule.ratio
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198179610149557844, guid: 311a38372ab3bd24d92bbd5477216d0b,
+        type: 2}
+      propertyPath: TrailModule.worldSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198179610149557844, guid: 311a38372ab3bd24d92bbd5477216d0b,
+        type: 2}
+      propertyPath: TrailModule.sizeAffectsWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198179610149557844, guid: 311a38372ab3bd24d92bbd5477216d0b,
+        type: 2}
+      propertyPath: TrailModule.widthOverTrail.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198179610149557844, guid: 311a38372ab3bd24d92bbd5477216d0b,
+        type: 2}
+      propertyPath: InheritVelocityModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 311a38372ab3bd24d92bbd5477216d0b, type: 2}

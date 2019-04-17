@@ -10,11 +10,6 @@ public class Projectile : MonoBehaviour {
 
     private float time;
 
-    //public Projectile(float speed)
-    //{
-    //    this.speed = speed;
-    //}
-
 	// Use this for initialization
 	void Start () {
         time = 0;
@@ -42,7 +37,8 @@ public class Projectile : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         speed = 0;
-
+        if (collision.collider.tag == "Shield")
+            Debug.Log("Shield Hit");
         Destroy(gameObject);
     }
 }

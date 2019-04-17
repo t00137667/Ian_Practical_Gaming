@@ -10,6 +10,7 @@ public class FirePointControl : MonoBehaviour {
 
     public List<GameObject> projectilesTypes = new List<GameObject>();
     private GameObject projectileType;
+    private bool isPlayerShip;
 
     // Weapon Fire Rates
     private float fireRateBullet = 4;
@@ -26,10 +27,18 @@ public class FirePointControl : MonoBehaviour {
 
     public float projectileSpeed;
 
+    public AudioClip shootSound;
+    private AudioSource source;
 
     public ProjectileType thisIsA;
-	// Use this for initialization
-	void Start () {
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
+    // Use this for initialization
+    void Start () {
 
         switch (thisIsA)
         {
@@ -47,6 +56,8 @@ public class FirePointControl : MonoBehaviour {
             default:
                 break;
         }
+
+        isPlayerShip = GetComponentInParent<MovementControlScript>().isPlayerShip;
 	}
 	
 	// Update is called once per frame
@@ -67,6 +78,9 @@ public class FirePointControl : MonoBehaviour {
         {
             case ProjectileType.Bullet:
                 projectile = Instantiate(projectileType, transform.position, forward);
+                if(isPlayerShip)
+                    projectile.tag = "PlayerProjectile";
+                source.Play();
                 break;
             case ProjectileType.Missile:
                 projectile = Instantiate(projectileType, transform.position, forward);

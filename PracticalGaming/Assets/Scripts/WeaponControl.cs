@@ -60,7 +60,7 @@ public class WeaponControl : MonoBehaviour {
         if (Input.GetButton(FIREWEAPON))
         {
             currentBulletIndex = WeaponCycle(AllBullets, currentBulletIndex);
-            Debug.Log("Pju! Pju!");
+            
         }
         if (Input.GetButton(FIREMISSILE))
         {
@@ -79,7 +79,9 @@ public class WeaponControl : MonoBehaviour {
             if (Time.time >= timeToFire)
             {
                 timeToFire = Time.time + 1 / weapons[index].fireRate / weapons.Count;
+                Debug.Log(index);
                 weapons[index].Shoot();
+                Debug.Log("Pju! Pju!");
                 index = (index  + 1) % weapons.Count;
             }
             return index;

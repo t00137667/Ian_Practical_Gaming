@@ -33,91 +33,101 @@ public class MovementControlScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Debug.Log("I liiiive!");
-        ourCamera = Camera.main.GetComponent<CameraControl>();
+        if (isPlayerShip)
+        {
+            ourCamera = Camera.main.GetComponent<CameraControl>();
+        }
+        
         Quaternion levelQuaternion = transform.rotation;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-
-        switch (shipIs)
+        if (isPlayerShip)
         {
-            case ShipMovement.Normal:
-
-                
-
-                //Quick Implement Code to demonstrate movement
-
-                // Get the horizontal and vertical axis.
-                // By default they are mapped to the arrow keys.
-                // The value is in the range -1 to 1
-                float translation =  speed;
-                float rotation = Input.GetAxis("Mouse X") * rotationSpeed;
-
-                // Make it move 10 meters per second instead of 10 meters per frame...
-                translation *= Time.deltaTime;
-                rotation *= Time.deltaTime;
-
-                // Move translation along the object's z-axis
-                //transform.position += speed * transform.forward * Time.deltaTime;
-
-                //transform.Translate(0, 0, translation);
-
-                // Calculate a banking angle
-                float bank = Input.GetAxis("Mouse X") * rotateSpeed;
-
-                //Try prevent extreme rotations
-                if (Vector3.Dot(Vector3.up, transform.up) < 0)
-                    bank = 0;
-                // Rotate around our y-axis
-                transform.Rotate(0, rotation, 0, Space.World);
-
-                //Set up a level rotation to rotate back to
-                Quaternion level = Quaternion.LookRotation(transform.forward, Vector3.up);
-
-                //bank the ship
-                transform.Rotate(0, 0, -bank);
-                
-                if (Input.GetAxis("Mouse X") == 0 && (Mathf.Abs(transform.rotation.eulerAngles.z) > 0 || Mathf.Abs(transform.rotation.eulerAngles.z) < 0))
-                {
-                    time += Time.deltaTime;
-                    //Debug.Log(time);
-                    if (time > 1) { time = 0.0f; }
-                    transform.rotation = Quaternion.Lerp(transform.rotation, level, 0.05f);
-                }
-                
-                
+            switch (shipIs)
+            {
+                case ShipMovement.Normal:
 
 
 
-                scriptTimer += Time.deltaTime;
-                ShouldMove();
-                ourCamera.updatePosition(transform);
+                    //Quick Implement Code to demonstrate movement
 
-                if (Input.GetKeyDown(KeyCode.P))
-                {
-                    shipIs = ShipMovement.Rolling_Right;
-                    rollTimer = 0;
-                    startingPosition = transform.position;
-                }
-                break;
+                    // Get the horizontal and vertical axis.
+                    // By default they are mapped to the arrow keys.
+                    // The value is in the range -1 to 1
+                    float translation = speed;
+                    float rotation = Input.GetAxis("Mouse X") * rotationSpeed;
+
+                    // Make it move 10 meters per second instead of 10 meters per frame...
+                    translation *= Time.deltaTime;
+                    rotation *= Time.deltaTime;
+
+                    // Move translation along the object's z-axis
+                    //transform.position += speed * transform.forward * Time.deltaTime;
+
+                    //transform.Translate(0, 0, translation);
+
+                    // Calculate a banking angle
+                    float bank = Input.GetAxis("Mouse X") * rotateSpeed;
+
+                    //Try prevent extreme rotations
+                    if (Vector3.Dot(Vector3.up, transform.up) < 0)
+                        bank = 0;
+                    // Rotate around our y-axis
+                    transform.Rotate(0, rotation, 0, Space.World);
+
+                    //Set up a level rotation to rotate back to
+                    Quaternion level = Quaternion.LookRotation(transform.forward, Vector3.up);
+
+                    //bank the ship
+                    transform.Rotate(0, 0, -bank);
+
+                    if (Input.GetAxis("Mouse X") == 0 && (Mathf.Abs(transform.rotation.eulerAngles.z) > 0 || Mathf.Abs(transform.rotation.eulerAngles.z) < 0))
+                    {
+                        time += Time.deltaTime;
+                        //Debug.Log(time);
+                        if (time > 1) { time = 0.0f; }
+                        transform.rotation = Quaternion.Lerp(transform.rotation, level, 0.05f);
+                    }
 
 
-            case ShipMovement.Rolling_Right:
-
-                SpinClockwise(rollSpeed);
-                ourCamera.updatePosition(transform);
-                break;
 
 
 
-            case ShipMovement.Rolling_Left:
+                    scriptTimer += Time.deltaTime;
+                    ShouldMove();
+                    ourCamera.updatePosition(transform);
 
-                SpinAntiClockwise(rollSpeed);
-                ourCamera.updatePosition(transform);
-                break;
+                    if (Input.GetKeyDown(KeyCode.P))
+                    {
+                        shipIs = ShipMovement.Rolling_Right;
+                        rollTimer = 0;
+                        startingPosition = transform.position;
+                    }
+                    break;
 
+
+                case ShipMovement.Rolling_Right:
+
+                    SpinClockwise(rollSpeed);
+                    ourCamera.updatePosition(transform);
+                    break;
+
+
+
+                case ShipMovement.Rolling_Left:
+
+                    SpinAntiClockwise(rollSpeed);
+                    ourCamera.updatePosition(transform);
+                    break;
+
+            }
+        }
+        else
+        {
+            ShouldMove();
         }
 
 
@@ -268,38 +278,38 @@ public class MovementControlScript : MonoBehaviour {
     private void ShouldMove()
     {
         //throw new System.NotImplementedException();
-        if (ShouldAccelerate())
+        if (ShouldAccelerate() && isPlayerShip)
         {
             //Debug.Log("Accelerating");
             //Debug.Log("Current Speed: " + speed);
             Accelerate(speedAdjust);
 
         }
-        if (ShouldDeccelerate())
+        if (ShouldDeccelerate() && isPlayerShip)
         {
             //Debug.Log("Deccelerating");
             //Debug.Log("Current Speed: " + speed);
             Accelerate(-speedAdjust);
         }
-        if (ShouldStrafeLeft())
+        if (ShouldStrafeLeft() && isPlayerShip)
         {
             //Debug.Log("Strafing Left");
             transform.position -= transform.right * strafeSpeed *Time.deltaTime;
 
         }
-        if (ShouldStrafeRight())
+        if (ShouldStrafeRight() && isPlayerShip)
         {
             //Debug.Log("Strafing Right");
             transform.position += transform.right * strafeSpeed * Time.deltaTime;
         }
-        if (ShouldRollLeft())
+        if (ShouldRollLeft() && isPlayerShip)
         {
             shipIs = ShipMovement.Rolling_Left;
             rollTimer = 0;
             startingPosition = transform.position;
             //SpinAntiClockwise(rotateSpeed);
         }
-        if (ShouldRollRight())
+        if (ShouldRollRight() && isPlayerShip)
         {
             shipIs = ShipMovement.Rolling_Right;
             rollTimer = 0;
