@@ -7,7 +7,7 @@ public class WeaponControl : MonoBehaviour {
     private const string FIREWEAPON = "Fire1";
     private const string FIREMISSILE = "Fire2";
 
-
+    bool isPlayer;
     // Master List/Array
     FirePointControl[] firePoints;
 
@@ -23,6 +23,8 @@ public class WeaponControl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        isPlayer = GetComponentInParent<MovementControlScript>().isPlayerShip;
 
         // Initialise variables
         currentBulletIndex = 0;
@@ -57,17 +59,27 @@ public class WeaponControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetButton(FIREWEAPON))
+        if (Input.GetButton(FIREWEAPON) && isPlayer)
         {
-            currentBulletIndex = WeaponCycle(AllBullets, currentBulletIndex);
+            FireBullets();
             
         }
-        if (Input.GetButton(FIREMISSILE))
+        if (Input.GetButton(FIREMISSILE) && isPlayer)
         {
-            currentMissileIndex = WeaponCycle(AllMissiles, currentMissileIndex);
+            FireMissiles();
         }
 		
 	}
+
+    void FireBullets()
+    {
+        currentBulletIndex = WeaponCycle(AllBullets, currentBulletIndex);
+    }
+
+    void FireMissiles()
+    {
+        currentMissileIndex = WeaponCycle(AllMissiles, currentMissileIndex);
+    }
 
     int WeaponCycle(List<FirePointControl> weapons, int index)
     {

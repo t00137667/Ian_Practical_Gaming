@@ -10,15 +10,15 @@ public class ShieldControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //shieldFX.GetComponent<ParticleSystem>().Stop();
         player = GetComponentInParent<MovementControlScript>().isPlayerShip;
-        
-        //shieldFX = GetComponent<GameObject>();
+
+        if (player)
+            this.tag = "PlayerShield";
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        //ShieldCleanUp();
+        
 	}
 
     void OnCollisionEnter(Collision collision)
@@ -38,24 +38,21 @@ public class ShieldControl : MonoBehaviour {
         GameObject shieldCopy = shieldFX;
 
         // Allowing Player shots to pass though the players own shield
-        if (other.tag == "Projectile" && GetComponentInParent<MovementControlScript>().isPlayerShip)
+        if (other.tag == "Projectile" && player)
         {
             Debug.Log("Enemy Shot has Hit");
-            shieldFX.GetComponent<ParticleSystem>().Play();
-            if (shieldFX == null)
-            {
-                Debug.Log("Nope");
-            }
-            
+
+            GameObject shield = Instantiate(shieldCopy, transform.position, transform.rotation, gameObject.transform);
+            shield.AddComponent<ParticleAutoDestroy>();
+            shield.GetComponent<ParticleSystem>().Play();
+
         }
 
-
-        if (other.tag == "PlayerProjectile" && !GetComponentInParent<MovementControlScript>().isPlayerShip)
+        // Player Shots to hit enemy shields
+        if (other.tag == "PlayerProjectile" && !player)
         {
             Debug.Log("Enemy Shield has been hit");
-            //
-            //shield = new GameObject();
-            //shield = 
+            
             GameObject shield = Instantiate(shieldCopy, transform.position, transform.rotation, gameObject.transform);
             shield.AddComponent<ParticleAutoDestroy>();
             shield.GetComponent<ParticleSystem>().Play();

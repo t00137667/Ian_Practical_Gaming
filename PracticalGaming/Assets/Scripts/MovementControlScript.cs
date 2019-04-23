@@ -98,6 +98,7 @@ public class MovementControlScript : MonoBehaviour {
 
                     scriptTimer += Time.deltaTime;
                     ShouldMove();
+                    if (ourCamera != null)
                     ourCamera.updatePosition(transform);
 
                     if (Input.GetKeyDown(KeyCode.P))
@@ -395,5 +396,10 @@ public class MovementControlScript : MonoBehaviour {
 
         // Rotate around our y-axis
         //transform.Rotate(0, rotation, 0);
+    }
+
+    public void Destroyed()
+    {
+        Destroy(gameObject);
     }
 }

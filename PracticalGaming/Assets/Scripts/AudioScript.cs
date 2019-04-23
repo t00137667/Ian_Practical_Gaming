@@ -10,7 +10,7 @@ public class AudioScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Audio.clip = gunshot;
+        //Audio.clip = gunshot;
 	}
 	
 	// Update is called once per frame

@@ -8,6 +8,11 @@ public class Projectile : MonoBehaviour {
     public float fireRate;
     public float lifeSpan;
 
+    enum ProjectileType { Bullet, Missile, etc }
+    ProjectileType thisIsA;
+
+    public float strength;
+
     private float time;
 
 	// Use this for initialization
@@ -17,7 +22,22 @@ public class Projectile : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position += transform.forward * (speed * Time.deltaTime);
+
+        switch (thisIsA) {
+            case ProjectileType.Bullet:
+                transform.position += transform.forward * (speed * Time.deltaTime);
+                break;
+            case ProjectileType.Missile:
+                transform.position += transform.forward * (speed * Time.deltaTime);
+                break;
+            default:
+                transform.position += transform.forward * (speed * Time.deltaTime);
+                break;
+        }
+
+
+
+        //transform.position += transform.forward * (speed * Time.deltaTime);
         time += Time.deltaTime;
 
         if (time >= lifeSpan)
@@ -34,11 +54,43 @@ public class Projectile : MonoBehaviour {
         Destroy(gameObject);
     }
 
+    public void YouAreABullet()
+    {
+        thisIsA = ProjectileType.Bullet;
+    }
+    public void YouAreAMissile()
+    {
+        thisIsA = ProjectileType.Missile;
+    }
+
+    void OnHit(Collider other)
+    {
+        speed = 0;
+        other.GetComponentInChildren<ShieldHealth>().AdjustHealth(strength);
+        Destroy(gameObject);
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         speed = 0;
         if (collision.collider.tag == "Shield")
-            Debug.Log("Shield Hit");
+            Debug.Log("OnCollisionEnter");
         Destroy(gameObject);
+    }
+    // Handles impacts with Shield Colliders
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if (other.tag == "Shield" && this.tag == "PlayerProjectile")
+        {
+            Debug.Log("Shield Hit");
+            OnHit(other);
+        }
+
+        if (other.tag == "PlayerShield" && this.tag == "Projectile")
+        {
+            Debug.Log("Player Shield Hit");
+            OnHit(other);
+        }
     }
 }
