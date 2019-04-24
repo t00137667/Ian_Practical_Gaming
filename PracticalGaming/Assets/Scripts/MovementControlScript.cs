@@ -6,9 +6,9 @@ public class MovementControlScript : MonoBehaviour {
 
     public bool isPlayerShip = false;
 
-    enum ShipMovement { Normal, Rolling_Left, Rolling_Right}
+    public enum ShipMovement { Normal, Rolling_Left, Rolling_Right}
 
-    ShipMovement shipIs = ShipMovement.Normal;
+    public ShipMovement shipIs = ShipMovement.Normal;
     private float rollTimer;
     private float scriptTimer = 0;
     float time = 0;
@@ -39,6 +39,7 @@ public class MovementControlScript : MonoBehaviour {
         }
         
         Quaternion levelQuaternion = transform.rotation;
+
     }
 	
 	// Update is called once per frame
@@ -50,24 +51,13 @@ public class MovementControlScript : MonoBehaviour {
             {
                 case ShipMovement.Normal:
 
-
-
-                    //Quick Implement Code to demonstrate movement
-
                     // Get the horizontal and vertical axis.
                     // By default they are mapped to the arrow keys.
                     // The value is in the range -1 to 1
-                    float translation = speed;
                     float rotation = Input.GetAxis("Mouse X") * rotationSpeed;
 
-                    // Make it move 10 meters per second instead of 10 meters per frame...
-                    translation *= Time.deltaTime;
                     rotation *= Time.deltaTime;
 
-                    // Move translation along the object's z-axis
-                    //transform.position += speed * transform.forward * Time.deltaTime;
-
-                    //transform.Translate(0, 0, translation);
 
                     // Calculate a banking angle
                     float bank = Input.GetAxis("Mouse X") * rotateSpeed;
@@ -91,11 +81,7 @@ public class MovementControlScript : MonoBehaviour {
                         if (time > 1) { time = 0.0f; }
                         transform.rotation = Quaternion.Lerp(transform.rotation, level, 0.05f);
                     }
-
-
-
-
-
+                    
                     scriptTimer += Time.deltaTime;
                     ShouldMove();
                     if (ourCamera != null)
@@ -396,10 +382,5 @@ public class MovementControlScript : MonoBehaviour {
 
         // Rotate around our y-axis
         //transform.Rotate(0, rotation, 0);
-    }
-
-    public void Destroyed()
-    {
-        Destroy(gameObject);
     }
 }

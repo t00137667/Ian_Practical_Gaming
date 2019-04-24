@@ -13,6 +13,7 @@ public class ShieldHealth : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        if (health == 0)
         health = MAXHEALTH;
         
 	}
@@ -53,7 +54,8 @@ public class ShieldHealth : MonoBehaviour {
         {
             Debug.Log("Ship Destroyed");
             health = 0;
-            GetComponentInParent<MovementControlScript>().Destroyed();
+            GetComponentInParent<ShieldControl>().Destroyed();
+            
         }
     }
 }

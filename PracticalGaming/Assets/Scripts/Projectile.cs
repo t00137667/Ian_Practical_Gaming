@@ -18,6 +18,10 @@ public class Projectile : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         time = 0;
+
+
+        // Needs adjustment for actual play, just for testing at the moment
+        Cursor.lockState = CursorLockMode.Locked;
 	}
 	
 	// Update is called once per frame
@@ -66,7 +70,7 @@ public class Projectile : MonoBehaviour {
     void OnHit(Collider other)
     {
         speed = 0;
-        other.GetComponentInChildren<ShieldHealth>().AdjustHealth(strength);
+        other.GetComponentInChildren<ShieldHealth>().AdjustHealth(strength);       
         Destroy(gameObject);
     }
 
@@ -87,7 +91,9 @@ public class Projectile : MonoBehaviour {
             OnHit(other);
         }
 
-        if (other.tag == "PlayerShield" && this.tag == "Projectile")
+
+        // Checks if projectile hit the player, and they were not in a Roll
+        if (other.tag == "PlayerShield" && this.tag == "Projectile" && other.GetComponentInParent<MovementControlScript>().shipIs != MovementControlScript.ShipMovement.Normal)
         {
             Debug.Log("Player Shield Hit");
             OnHit(other);

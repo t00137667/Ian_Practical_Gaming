@@ -10,7 +10,8 @@ public class ShieldControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        player = GetComponentInParent<MovementControlScript>().isPlayerShip;
+        if (GetComponentInParent<MovementControlScript>() != null)
+            player = GetComponentInParent<MovementControlScript>().isPlayerShip;
 
         if (player)
             this.tag = "PlayerShield";
@@ -58,5 +59,10 @@ public class ShieldControl : MonoBehaviour {
             shield.GetComponent<ParticleSystem>().Play();
 
         }
+    }
+
+    public void Destroyed()
+    {
+        Destroy(transform.parent.gameObject);
     }
 }

@@ -6,32 +6,25 @@ public class SpawnerScript : MonoBehaviour {
 
     int spawnDistance = 1000;
 
-    float gameTime = 0;
-    float newTime = 0;
+    
 
     public List<GameObject> enemyShips = new List<GameObject>();
     public GameObject enemyShip;
 
     Vector3 spawnPoint = new Vector3();
 
+    Quaternion rotationCenter;
+
     // Use this for initialization
     void Start()
     {
-        newTime = gameTime + 1;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        gameTime += Time.deltaTime;
-        Quaternion rotateToCenter = Quaternion.LookRotation(-transform.forward, Vector3.up);
-        if (newTime <= gameTime)
-        {
-            newTime = gameTime + 1;
-            PickSpawnDirection();
-            PickSpawnLocation();
-            GameObject enemyShipCopy = Instantiate(enemyShip, spawnPoint, rotateToCenter);
-        }
+        
     }
 
     void PickSpawnDirection()
@@ -49,8 +42,15 @@ public class SpawnerScript : MonoBehaviour {
         Debug.DrawLine(transform.position, spawnPoint, Color.white, 0.5f);
     }
 
-    public void SpawnEnemyShip()
+    public void SpawnEnemyShip(int ship)
     {
+        enemyShip = enemyShips[ship];
 
+        PickSpawnDirection();
+        PickSpawnLocation();
+
+        rotationCenter = Quaternion.LookRotation(-transform.forward, Vector3.up);
+
+        GameObject enemyShipCopy = Instantiate(enemyShip, spawnPoint, rotationCenter);
     }
 }
