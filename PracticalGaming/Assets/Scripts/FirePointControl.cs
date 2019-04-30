@@ -24,8 +24,8 @@ public class FirePointControl : MonoBehaviour {
     private float lifeSpanMissile = 60;
 
     // Projectile Speeds
-    private float projectileSpeedBullet = 100;
-    private float projectileSpeedMissile = 75;
+    private float projectileSpeedBullet = 150;
+    private float projectileSpeedMissile = 100;
 
     public float projectileSpeed;
 

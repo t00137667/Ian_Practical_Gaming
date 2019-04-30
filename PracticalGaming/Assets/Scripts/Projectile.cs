@@ -91,11 +91,17 @@ public class Projectile : MonoBehaviour {
             OnHit(other);
         }
 
+        //bool rolling = other.GetComponentInParent<MovementControlScript>().shipIs != MovementControlScript.ShipMovement.Normal;
+        //// Checks if projectile hit the player, and they were not in a Roll
+        //if (other.tag == "PlayerShield" && this.tag == "Projectile" && !rolling)
+        //{
+        //    Debug.Log("Player Shield Hit");
+        //    OnHit(other);
+        //}
 
-        // Checks if projectile hit the player, and they were not in a Roll
-        if (other.tag == "PlayerShield" && this.tag == "Projectile" && other.GetComponentInParent<MovementControlScript>().shipIs != MovementControlScript.ShipMovement.Normal)
+        if (other.tag == "PlayerShield" && this.tag == "Projectile")
         {
-            Debug.Log("Player Shield Hit");
+            Debug.Log("Target Shield Hit");
             OnHit(other);
         }
     }

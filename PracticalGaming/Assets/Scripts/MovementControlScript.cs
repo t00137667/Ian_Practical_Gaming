@@ -5,6 +5,7 @@ using UnityEngine;
 public class MovementControlScript : MonoBehaviour {
 
     public bool isPlayerShip = false;
+    public bool inRange = false;
 
     public enum ShipMovement { Normal, Rolling_Left, Rolling_Right}
 
@@ -29,6 +30,8 @@ public class MovementControlScript : MonoBehaviour {
     private float test;
     private Vector3 startingPosition;
 
+    private Transform target;
+
 
     // Use this for initialization
     void Start () {
@@ -37,7 +40,9 @@ public class MovementControlScript : MonoBehaviour {
         {
             ourCamera = Camera.main.GetComponent<CameraControl>();
         }
-        
+
+        target = GameManagerScript.RequestTargetPosition();
+
         Quaternion levelQuaternion = transform.rotation;
 
     }
@@ -114,11 +119,18 @@ public class MovementControlScript : MonoBehaviour {
         }
         else
         {
-            if (true)
+            if (target != null)
             {
-
+                if (Vector3.Magnitude(transform.position - target.position) < 200)
+                {
+                    Accelerate(-5);
+                    inRange = true;
+                }
             }
-
+            else
+            {
+                inRange = false;
+            }
 
             ShouldMove();
         }
@@ -277,15 +289,11 @@ public class MovementControlScript : MonoBehaviour {
         //throw new System.NotImplementedException();
         if (ShouldAccelerate() && isPlayerShip)
         {
-            //Debug.Log("Accelerating");
-            //Debug.Log("Current Speed: " + speed);
             Accelerate(speedAdjust);
 
         }
         if (ShouldDeccelerate() && isPlayerShip)
         {
-            //Debug.Log("Deccelerating");
-            //Debug.Log("Current Speed: " + speed);
             Accelerate(-speedAdjust);
         }
         if (ShouldStrafeLeft() && isPlayerShip)
@@ -304,14 +312,14 @@ public class MovementControlScript : MonoBehaviour {
             shipIs = ShipMovement.Rolling_Left;
             rollTimer = 0;
             startingPosition = transform.position;
-            //SpinAntiClockwise(rotateSpeed);
+            
         }
         if (ShouldRollRight() && isPlayerShip)
         {
             shipIs = ShipMovement.Rolling_Right;
             rollTimer = 0;
             startingPosition = transform.position;
-            //SpinClockwise(rotateSpeed);
+            
         }
         Move();
     }
@@ -389,8 +397,5 @@ public class MovementControlScript : MonoBehaviour {
     {
         // Move translation along the object's z-axis
         transform.Translate(0, 0, speed * Time.deltaTime);
-
-        // Rotate around our y-axis
-        //transform.Rotate(0, rotation, 0);
     }
 }

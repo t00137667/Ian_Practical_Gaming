@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour {
 
@@ -9,14 +10,25 @@ public class GameManagerScript : MonoBehaviour {
 
     SpawnerScript spawner;
 
-    Transform target;
+    static List<GameObject> EnemyShips = new List<GameObject>();
+    MovementControlScript player;
+    int shipCount = 1;
+
+    static TargetObjective target;
+
+    private void Awake()
+    {
+        target = FindObjectOfType<TargetObjective>();
+        player = FindObjectOfType<MovementControlScript>();
+    }
 
     // Use this for initialization
     void Start () {
         newTime = gameTime + 1;
 
         spawner = GetComponentInChildren<SpawnerScript>();
- 
+
+        
     }
 	
 	// Update is called once per frame
@@ -27,8 +39,52 @@ public class GameManagerScript : MonoBehaviour {
         {
             newTime = gameTime + 1;
 
-            spawner.SpawnEnemyShip(0);
+            if (shipCount < 20)
+            {
+                spawner.SpawnEnemyShip(0);
+                AddEnemyShip();
+            }
+            CheckIfInRange();
+        }
+        
+        if (target == null || player == null)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+
+    }
+
+    public void AddEnemyShip()
+    {
+        EnemyShips.Add(SpawnerScript.GetShip());
+        shipCount = EnemyShips.Count;
+    }
+
+    public static Transform RequestTargetPosition()
+    {
+        return target.transform;
+    }
+
+    private void CheckIfInRange()
+    {
+        foreach(GameObject g in EnemyShips)
+        {
+            if (g != null)
+            {
+                if (g.GetComponent<MovementControlScript>().inRange)
+                {
+                    g.GetComponentInChildren<WeaponControl>().FireBullets();
+                    g.GetComponentInChildren<WeaponControl>().FireBullets();
+                }
+            }
+            
         }
     }
 
+    public static void DestroyShip(GameObject g)
+    {
+        EnemyShips.Remove(g);
+
+        Destroy(g);
+    }
 }

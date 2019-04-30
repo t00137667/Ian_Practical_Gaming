@@ -71,7 +71,7 @@ public class WeaponControl : MonoBehaviour {
 		
 	}
 
-    void FireBullets()
+    public void FireBullets()
     {
         currentBulletIndex = WeaponCycle(AllBullets, currentBulletIndex);
     }

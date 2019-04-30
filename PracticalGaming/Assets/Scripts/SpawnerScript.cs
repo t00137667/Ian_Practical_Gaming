@@ -11,6 +11,8 @@ public class SpawnerScript : MonoBehaviour {
     public List<GameObject> enemyShips = new List<GameObject>();
     public GameObject enemyShip;
 
+    private static GameObject ship;
+
     Vector3 spawnPoint = new Vector3();
 
     Quaternion rotationCenter;
@@ -52,5 +54,15 @@ public class SpawnerScript : MonoBehaviour {
         rotationCenter = Quaternion.LookRotation(-transform.forward, Vector3.up);
 
         GameObject enemyShipCopy = Instantiate(enemyShip, spawnPoint, rotationCenter);
+        SetShip(enemyShipCopy);
+    }
+
+    private void SetShip(GameObject enemyship)
+    {
+         ship = enemyship;
+    }
+    public static GameObject GetShip()
+    {
+        return ship;
     }
 }

@@ -59,10 +59,21 @@ public class ShieldControl : MonoBehaviour {
             shield.GetComponent<ParticleSystem>().Play();
 
         }
+
+        // Allowing Enemy shots to hit the objective
+        if (other.tag == "Projectile" && GetComponentInParent<TargetObjective>() != null)
+        {
+            Debug.Log("Enemy Shot has Hit");
+
+            GameObject shield = Instantiate(shieldCopy, transform.position, transform.rotation, gameObject.transform);
+            shield.AddComponent<ParticleAutoDestroy>();
+            shield.GetComponent<ParticleSystem>().Play();
+
+        }
     }
 
     public void Destroyed()
     {
-        Destroy(transform.parent.gameObject);
+        GameManagerScript.DestroyShip(transform.parent.gameObject);        
     }
 }
