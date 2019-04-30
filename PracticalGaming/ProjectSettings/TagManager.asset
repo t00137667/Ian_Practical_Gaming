@@ -8,6 +8,7 @@ TagManager:
   - Shield
   - PlayerProjectile
   - PlayerShield
+  - TargetObjective
   layers:
   - Default
   - TransparentFX

@@ -114,6 +114,12 @@ public class MovementControlScript : MonoBehaviour {
         }
         else
         {
+            if (true)
+            {
+
+            }
+
+
             ShouldMove();
         }
 
@@ -140,9 +146,13 @@ public class MovementControlScript : MonoBehaviour {
         {
             return;
         }
-        if (speed <= 5 && speedAdjust < 0)
+        if (speed <= 5 && speedAdjust < 0 && isPlayerShip)
         {
             return;
+        }
+        if (speed <= 0 && speedAdjust < 0)
+        {
+            speed = 0;
         }
         else
             speed += speedAdjust * Time.deltaTime;

@@ -9,12 +9,14 @@ public class GameManagerScript : MonoBehaviour {
 
     SpawnerScript spawner;
 
+    Transform target;
+
     // Use this for initialization
     void Start () {
         newTime = gameTime + 1;
 
         spawner = GetComponentInChildren<SpawnerScript>();
-
+ 
     }
 	
 	// Update is called once per frame
