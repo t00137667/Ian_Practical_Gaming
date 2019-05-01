@@ -6,7 +6,8 @@ public class ShieldControl : MonoBehaviour {
 
     public bool player;
     public GameObject shieldFX;
-    
+
+    AudioSource source;
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +16,8 @@ public class ShieldControl : MonoBehaviour {
 
         if (player)
             this.tag = "PlayerShield";
+
+       source = gameObject.AddComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -47,6 +50,8 @@ public class ShieldControl : MonoBehaviour {
             shield.AddComponent<ParticleAutoDestroy>();
             shield.GetComponent<ParticleSystem>().Play();
 
+            source.PlayOneShot(FindObjectOfType<GameManagerScript>().shieldHit);
+
         }
 
         // Player Shots to hit enemy shields
@@ -58,6 +63,7 @@ public class ShieldControl : MonoBehaviour {
             shield.AddComponent<ParticleAutoDestroy>();
             shield.GetComponent<ParticleSystem>().Play();
 
+            source.PlayOneShot(FindObjectOfType<GameManagerScript>().shieldHit);
         }
 
         // Allowing Enemy shots to hit the objective
@@ -69,11 +75,28 @@ public class ShieldControl : MonoBehaviour {
             shield.AddComponent<ParticleAutoDestroy>();
             shield.GetComponent<ParticleSystem>().Play();
 
+            source.PlayOneShot(FindObjectOfType<GameManagerScript>().shieldHit);
         }
     }
 
     public void Destroyed()
     {
-        GameManagerScript.DestroyShip(transform.parent.gameObject);        
+        StartCoroutine("Destroy");
+    }
+
+    IEnumerator Destroy()
+    {
+
+        while (true)
+        {
+            if (!source.isPlaying)
+            {
+                FindObjectOfType<GameManagerScript>().DestroyShip(transform.parent.gameObject);
+            }
+
+            yield return null;
+        }
+        
+        
     }
 }

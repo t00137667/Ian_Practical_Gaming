@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShieldHealth : MonoBehaviour {
 
@@ -9,13 +10,37 @@ public class ShieldHealth : MonoBehaviour {
     private const double SHEILD_REGEN = 5;
     public double health;
 
+    HealthBarController healthBar;
+    Slider healthSlider;
+
     float time = 0;
 
     // Use this for initialization
     void Start () {
         if (health == 0)
-        health = MAXHEALTH;
-        
+            health = MAXHEALTH;
+
+        if (GetComponentInParent<MovementControlScript>() != null)
+        {
+            if (GetComponentInParent<MovementControlScript>().isPlayerShip)
+            {
+                healthBar = GameObject.Find("PlayerHealth").GetComponent<HealthBarController>();
+                healthSlider = healthBar.GetComponent<Slider>();
+            }
+            
+        }
+
+        if (GetComponentInParent<TargetObjective>() != null)
+        {
+            healthBar = GameObject.Find("BaseHealth").GetComponent<HealthBarController>();
+            healthSlider = healthBar.GetComponent<Slider>();
+        }
+
+        if (healthSlider != null)
+        {
+            healthSlider.value = (float)health;
+            Debug.Log("Starting Health: "+ health);
+        }
 	}
 	
 	// Update is called once per frame
@@ -43,7 +68,10 @@ public class ShieldHealth : MonoBehaviour {
                 Debug.Log("Enemy Ship health" + health);
                 time += Time.deltaTime;
             }
-            
+            if (healthSlider != null)
+            {
+                healthSlider.value = (float)health;
+            }
         }
 	}
 

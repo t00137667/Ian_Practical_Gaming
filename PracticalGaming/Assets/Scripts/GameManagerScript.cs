@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManagerScript : MonoBehaviour {
+public  class GameManagerScript : MonoBehaviour {
 
     float gameTime = 0;
     float newTime = 0;
 
     SpawnerScript spawner;
+    public AudioClip gunShot;
+    public AudioClip missile;
+    public AudioClip shieldHit;
+    public AudioClip shipDeath;
+
+    AudioSource source;
 
     static List<GameObject> EnemyShips = new List<GameObject>();
     MovementControlScript player;
@@ -20,6 +26,8 @@ public class GameManagerScript : MonoBehaviour {
     {
         target = FindObjectOfType<TargetObjective>();
         player = FindObjectOfType<MovementControlScript>();
+
+        source = gameObject.AddComponent<AudioSource>();
     }
 
     // Use this for initialization
@@ -81,9 +89,12 @@ public class GameManagerScript : MonoBehaviour {
         }
     }
 
-    public static void DestroyShip(GameObject g)
+    public void DestroyShip(GameObject g)
     {
+        
         EnemyShips.Remove(g);
+
+        source.PlayOneShot(shipDeath);
 
         Destroy(g);
     }

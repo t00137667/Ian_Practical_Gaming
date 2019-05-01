@@ -35,14 +35,16 @@ public class FirePointControl : MonoBehaviour {
 
     public float projectileStrength;
 
-    public AudioClip shootSound;
+
     private AudioSource source;
+
+   
 
     public ProjectileType thisIsA;
 
     void Awake()
     {
-        source = GetComponent<AudioSource>();
+        source = gameObject.AddComponent<AudioSource>();
     }
 
     // Use this for initialization
@@ -92,7 +94,7 @@ public class FirePointControl : MonoBehaviour {
                 projectile.GetComponent<Projectile>().YouAreABullet();
                 if(isPlayerShip)
                     projectile.tag = "PlayerProjectile";
-                //source.Play();
+                source.PlayOneShot(FindObjectOfType<GameManagerScript>().gunShot);
                 break;
             case ProjectileType.Missile:
                 projectile = Instantiate(projectileType, transform.position, forward);
@@ -100,6 +102,7 @@ public class FirePointControl : MonoBehaviour {
                 projectile.GetComponent<Projectile>().YouAreAMissile();
                 if (isPlayerShip)
                     projectile.tag = "PlayerProjectile";
+                source.PlayOneShot(FindObjectOfType<GameManagerScript>().missile);
                 break;
             default:
                 break;

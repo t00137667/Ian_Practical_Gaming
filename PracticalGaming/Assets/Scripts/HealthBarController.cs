@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldSpawn : MonoBehaviour {
+public class HealthBarController : MonoBehaviour {
 
-	// Class Removed Function Integrated into
-    
-    // Use this for initialization
+	// Use this for initialization
 	void Start () {
 		
 	}
