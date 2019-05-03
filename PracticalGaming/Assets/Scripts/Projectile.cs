@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour {
     public float fireRate;
     public float lifeSpan;
 
+    public GameObject target;
+
     enum ProjectileType { Bullet, Missile, etc }
     ProjectileType thisIsA;
 
@@ -20,8 +22,7 @@ public class Projectile : MonoBehaviour {
         time = 0;
 
 
-        // Needs adjustment for actual play, just for testing at the moment
-        Cursor.lockState = CursorLockMode.Locked;
+        
 	}
 	
 	// Update is called once per frame
@@ -33,6 +34,7 @@ public class Projectile : MonoBehaviour {
                 break;
             case ProjectileType.Missile:
                 transform.position += transform.forward * (speed * Time.deltaTime);
+                FollowTarget();
                 break;
             default:
                 transform.position += transform.forward * (speed * Time.deltaTime);
@@ -72,6 +74,14 @@ public class Projectile : MonoBehaviour {
         speed = 0;
         other.GetComponentInChildren<ShieldHealth>().AdjustHealth(strength);       
         Destroy(gameObject);
+    }
+
+    void FollowTarget()
+    {
+        if (Vector3.Distance(transform.position, target.transform.position) <= 100)
+        {
+            transform.LookAt(target.transform.position);
+        }
     }
 
     void OnCollisionEnter(Collision collision)

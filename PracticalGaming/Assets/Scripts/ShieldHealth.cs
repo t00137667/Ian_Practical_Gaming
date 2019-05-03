@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class ShieldHealth : MonoBehaviour {
 
-    private const double MAXHEALTH = 100;
+    public double MAXHEALTH;
+    private const int BASEHEALTH = 100;
     private const double UPPER_REGEN = 1;
     private const double SHEILD_REGEN = 5;
-    public double health;
+    private double health;
+    private double healthPercent;
 
     HealthBarController healthBar;
     Slider healthSlider;
@@ -19,6 +21,9 @@ public class ShieldHealth : MonoBehaviour {
     void Start () {
         if (health == 0)
             health = MAXHEALTH;
+        if (MAXHEALTH == 0)
+            MAXHEALTH = BASEHEALTH;
+            
 
         if (GetComponentInParent<MovementControlScript>() != null)
         {
@@ -46,6 +51,7 @@ public class ShieldHealth : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+
         // Manages the Shield Health Regeneration over Time
         if (health < MAXHEALTH)
         {
@@ -68,12 +74,13 @@ public class ShieldHealth : MonoBehaviour {
                 Debug.Log("Enemy Ship health" + health);
                 time += Time.deltaTime;
             }
-            if (healthSlider != null)
-            {
-                healthSlider.value = (float)health;
-            }
         }
-	}
+        if (healthSlider != null)
+        {
+            healthPercent = (health / MAXHEALTH) * 100;
+            healthSlider.value = (float)healthPercent;
+        }
+    }
 
     public void AdjustHealth(double hitStrength)
     {

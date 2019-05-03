@@ -74,7 +74,7 @@ public class FirePointControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
     internal void YouAreABullet()
@@ -100,6 +100,7 @@ public class FirePointControl : MonoBehaviour {
                 projectile = Instantiate(projectileType, transform.position, forward);
                 projectile.GetComponent<Projectile>().strength = projectileStrength;
                 projectile.GetComponent<Projectile>().YouAreAMissile();
+                projectile.GetComponent<Projectile>().target = GetComponentInParent<WeaponControl>().target;
                 if (isPlayerShip)
                     projectile.tag = "PlayerProjectile";
                 source.PlayOneShot(FindObjectOfType<GameManagerScript>().missile);

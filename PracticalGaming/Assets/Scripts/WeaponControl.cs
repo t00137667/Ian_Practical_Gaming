@@ -20,6 +20,8 @@ public class WeaponControl : MonoBehaviour {
     int currentMissileIndex;
     float timeToFire;
 
+    public GameObject target;
+    private bool hasLock = false;
 
     // Use this for initialization
     void Start () {
@@ -66,7 +68,9 @@ public class WeaponControl : MonoBehaviour {
         }
         if (Input.GetButton(FIREMISSILE) && isPlayer)
         {
-            FireMissiles();
+            SetMissileTarget();
+            if (hasLock)
+                FireMissiles();
         }
 		
 	}
@@ -91,12 +95,27 @@ public class WeaponControl : MonoBehaviour {
             if (Time.time >= timeToFire)
             {
                 timeToFire = Time.time + 1 / weapons[index].fireRate / weapons.Count;
-                Debug.Log(index);
+                //Debug.Log(index);
                 weapons[index].Shoot();
-                Debug.Log("Pju! Pju!");
+                //Debug.Log("Pju! Pju!");
                 index = (index  + 1) % weapons.Count;
             }
             return index;
         }
+    }
+
+    private void SetMissileTarget()
+    {
+        Debug.DrawRay(transform.position + transform.forward * 10, transform.forward, Color.white, 500);
+        RaycastHit info;
+        Physics.Raycast(transform.position + transform.forward*10, transform.forward, out info, 500);
+
+        if (info.collider)
+        {
+            target = info.transform.gameObject;
+            hasLock = true;
+        }
+        else
+            hasLock = false;
     }
 }

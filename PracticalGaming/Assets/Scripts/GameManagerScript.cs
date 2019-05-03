@@ -36,7 +36,8 @@ public  class GameManagerScript : MonoBehaviour {
 
         spawner = GetComponentInChildren<SpawnerScript>();
 
-        
+        // Needs adjustment for actual play, just for testing at the moment
+        Cursor.lockState = CursorLockMode.Locked;
     }
 	
 	// Update is called once per frame
