@@ -26,7 +26,8 @@ public class WeaponControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        isPlayer = GetComponentInParent<MovementControlScript>().isPlayerShip;
+        if(GetComponentInParent<MovementControlScript>() != null)
+            isPlayer = GetComponentInParent<MovementControlScript>().isPlayerShip;
 
         // Initialise variables
         currentBulletIndex = 0;

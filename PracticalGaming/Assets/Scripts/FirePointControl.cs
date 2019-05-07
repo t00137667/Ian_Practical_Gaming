@@ -68,8 +68,8 @@ public class FirePointControl : MonoBehaviour {
             default:
                 break;
         }
-
-        isPlayerShip = GetComponentInParent<MovementControlScript>().isPlayerShip;
+        if (GetComponentInParent<MovementControlScript>() != null)
+            isPlayerShip = GetComponentInParent<MovementControlScript>().isPlayerShip;
 	}
 	
 	// Update is called once per frame

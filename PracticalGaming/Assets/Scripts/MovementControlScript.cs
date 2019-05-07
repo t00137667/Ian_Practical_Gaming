@@ -119,6 +119,8 @@ public class MovementControlScript : MonoBehaviour {
         }
         else
         {
+            // NPC Ships will path in their spawned direction, but stop when in range of the target
+
             if (target != null)
             {
                 if (Vector3.Magnitude(transform.position - target.position) < 200)

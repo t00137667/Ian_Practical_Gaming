@@ -78,9 +78,12 @@ public class Projectile : MonoBehaviour {
 
     void FollowTarget()
     {
-        if (Vector3.Distance(transform.position, target.transform.position) <= 100)
+        if (target != null)
         {
-            transform.LookAt(target.transform.position);
+            if (Vector3.Distance(transform.position, target.transform.position) <= 100)
+            {
+                transform.LookAt(target.transform.position);
+            }
         }
     }
 
