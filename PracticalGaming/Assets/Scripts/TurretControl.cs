@@ -4,27 +4,49 @@ using UnityEngine;
 
 public class TurretControl : MonoBehaviour {
 
-    Transform turretTarget, leftArm, leftShoulder, rightArm, rightShoulder, centralColumn;
+
+    GameManagerScript myManager;
+    GameObject turretTarget, leftArm, leftShoulder, rightArm, rightShoulder, centralColumn;
+    WeaponControl myWeaponControl;
+
+    Vector3 baseRotation, armRotation;
     
     // Use this for initialization
 	void Start () {
+
+        myManager = FindObjectOfType<GameManagerScript>();
+        myWeaponControl = GetComponentInChildren<WeaponControl>();
+
         // HindSight is 20/20, should have renamed the bones in 3ds Max
-        rightShoulder = GetComponent<Transform>().Find("Bone007/Bone002/Bone001");
-        rightArm = GetComponent<Transform>().Find("Bone003");
-        leftShoulder = GetComponent<Transform>().Find("Bone004");
-        leftArm = GetComponent<Transform>().Find("Bone006");
-        centralColumn = GetComponent<Transform>().Find("Bone007");
+        rightShoulder = GameObject.Find("Bone001");
+        //rightArm = GetComponent<Transform>().Find("Bone003");
+        leftShoulder = GameObject.Find("Bone004");
+        //leftArm = GetComponent<Transform>().Find("Bone006");
+        centralColumn = GameObject.Find("Bone007");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (rightShoulder == null)
+		if (turretTarget == null)
         {
-            Debug.Log("Right Shoulder is null");
+            myManager.ProvideTarget(gameObject);
         }
-        else
-        {
-            Debug.Log("Right Shoulder Found");
-        }
-	}
+        
+    }
+
+    private void LateUpdate()
+    {
+        float yRotation = 45 * Time.deltaTime;
+
+        Vector3 rotation = new Vector3(0, yRotation, 0);
+
+        centralColumn.transform.eulerAngles = rotation;
+        rightShoulder.transform.eulerAngles = rotation;
+        leftShoulder.transform.eulerAngles = rotation;
+    }
+
+    public void SetTarget(GameObject target)
+    {
+        turretTarget = target;
+    }
 }

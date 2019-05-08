@@ -80,7 +80,7 @@ public class Projectile : MonoBehaviour {
     {
         if (target != null)
         {
-            if (Vector3.Distance(transform.position, target.transform.position) <= 100)
+            if (Vector3.Distance(transform.position, target.transform.position) <= 250)
             {
                 transform.LookAt(target.transform.position);
             }

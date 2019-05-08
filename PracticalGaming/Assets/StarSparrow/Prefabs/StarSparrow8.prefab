@@ -889,6 +889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e9a2142fb07f9419e8a66dd1b9223f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &114126822359102574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -907,7 +908,6 @@ MonoBehaviour:
   fireRate: 0
   projectileSpeed: 0
   projectileStrength: 0
-  shootSound: {fileID: 0}
   thisIsA: 0
 --- !u!114 &114185982387603748
 MonoBehaviour:
@@ -921,6 +921,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerShip: 0
+  inRange: 0
+  shipIs: 0
   speed: 20
   rotationSpeed: 50
 --- !u!114 &114313308809930740
@@ -941,7 +943,6 @@ MonoBehaviour:
   fireRate: 0
   projectileSpeed: 0
   projectileStrength: 0
-  shootSound: {fileID: 0}
   thisIsA: 0
 --- !u!114 &114581749055157652
 MonoBehaviour:
@@ -954,7 +955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ad63540fdeb8845b63c7c4f7ff5ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  MAXHEALTH: 0
 --- !u!114 &114888832462986550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1040,7 +1041,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 84232178
+  randomSeed: 576039231
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -1679,8 +1680,29 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 0
-    m_Bursts: []
+    m_BurstCount: 1
+    m_Bursts:
+    - serializedVersion: 2
+      time: 0
+      countCurve:
+        serializedVersion: 2
+        minMaxState: 0
+        scalar: 1
+        minScalar: 0
+        maxCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+        minCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+      cycleCount: 1
+      repeatInterval: 0.01
   SizeModule:
     enabled: 0
     curve:

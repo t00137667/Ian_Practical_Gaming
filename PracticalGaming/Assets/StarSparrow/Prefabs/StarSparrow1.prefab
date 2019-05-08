@@ -1277,7 +1277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ad63540fdeb8845b63c7c4f7ff5ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  MAXHEALTH: 0
 --- !u!114 &114173667267825312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1295,7 +1295,6 @@ MonoBehaviour:
   fireRate: 0
   projectileSpeed: 0
   projectileStrength: 0
-  shootSound: {fileID: 0}
   thisIsA: 0
 --- !u!114 &114296950255879998
 MonoBehaviour:
@@ -1314,7 +1313,6 @@ MonoBehaviour:
   fireRate: 0
   projectileSpeed: 0
   projectileStrength: 0
-  shootSound: {fileID: 0}
   thisIsA: 0
 --- !u!114 &114313849365230552
 MonoBehaviour:
@@ -1333,7 +1331,6 @@ MonoBehaviour:
   fireRate: 0
   projectileSpeed: 0
   projectileStrength: 0
-  shootSound: {fileID: 0}
   thisIsA: 0
 --- !u!114 &114348095760292778
 MonoBehaviour:
@@ -1365,7 +1362,6 @@ MonoBehaviour:
   fireRate: 0
   projectileSpeed: 0
   projectileStrength: 0
-  shootSound: {fileID: 8300000, guid: b00177400ce884a1f8777420c5b09e13, type: 3}
   thisIsA: 0
 --- !u!114 &114407441867041770
 MonoBehaviour:
@@ -1384,7 +1380,6 @@ MonoBehaviour:
   fireRate: 0
   projectileSpeed: 0
   projectileStrength: 0
-  shootSound: {fileID: 0}
   thisIsA: 0
 --- !u!114 &114439687401211634
 MonoBehaviour:
@@ -1397,6 +1392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e9a2142fb07f9419e8a66dd1b9223f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &114511156772890658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1409,6 +1405,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerShip: 1
+  inRange: 0
+  shipIs: 0
   speed: 10
   rotationSpeed: 100
 --- !u!114 &114801822401159692
@@ -1429,7 +1427,6 @@ MonoBehaviour:
   fireRate: 0
   projectileSpeed: 0
   projectileStrength: 0
-  shootSound: {fileID: 0}
   thisIsA: 1
 --- !u!114 &114885182625249400
 MonoBehaviour:
@@ -1448,7 +1445,6 @@ MonoBehaviour:
   fireRate: 0
   projectileSpeed: 0
   projectileStrength: 0
-  shootSound: {fileID: 0}
   thisIsA: 0
 --- !u!114 &114920811262245388
 MonoBehaviour:
@@ -1468,7 +1464,6 @@ MonoBehaviour:
   fireRate: 0
   projectileSpeed: 0
   projectileStrength: 0
-  shootSound: {fileID: 0}
   thisIsA: 1
 --- !u!135 &135190887318387060
 SphereCollider:
@@ -1542,7 +1537,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1245935294
+  randomSeed: 1347177487
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -2181,8 +2176,29 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 0
-    m_Bursts: []
+    m_BurstCount: 1
+    m_Bursts:
+    - serializedVersion: 2
+      time: 0
+      countCurve:
+        serializedVersion: 2
+        minMaxState: 0
+        scalar: 1
+        minScalar: 0
+        maxCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+        minCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+      cycleCount: 1
+      repeatInterval: 0.01
   SizeModule:
     enabled: 0
     curve:

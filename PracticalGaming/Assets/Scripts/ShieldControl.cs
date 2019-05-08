@@ -50,7 +50,7 @@ public class ShieldControl : MonoBehaviour {
             shield.AddComponent<ParticleAutoDestroy>();
             shield.GetComponent<ParticleSystem>().Play();
 
-            source.PlayOneShot(FindObjectOfType<GameManagerScript>().shieldHit);
+            
 
         }
 
@@ -63,7 +63,7 @@ public class ShieldControl : MonoBehaviour {
             shield.AddComponent<ParticleAutoDestroy>();
             shield.GetComponent<ParticleSystem>().Play();
 
-            source.PlayOneShot(FindObjectOfType<GameManagerScript>().shieldHit);
+           
         }
 
         // Allowing Enemy shots to hit the objective
@@ -75,13 +75,19 @@ public class ShieldControl : MonoBehaviour {
             shield.AddComponent<ParticleAutoDestroy>();
             shield.GetComponent<ParticleSystem>().Play();
 
-            source.PlayOneShot(FindObjectOfType<GameManagerScript>().shieldHit);
+            
         }
+    }
+
+    public void PlayHit()
+    {
+         source.PlayOneShot(FindObjectOfType<GameManagerScript>().shieldHit);
     }
 
     public void Destroyed()
     {
         StartCoroutine("Destroy");
+        
     }
 
     IEnumerator Destroy()

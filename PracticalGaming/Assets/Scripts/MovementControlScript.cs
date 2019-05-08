@@ -123,6 +123,8 @@ public class MovementControlScript : MonoBehaviour {
 
             if (target != null)
             {
+                transform.LookAt(target.transform.position);
+
                 if (Vector3.Magnitude(transform.position - target.position) < 200)
                 {
                     Accelerate(-5);
@@ -131,7 +133,10 @@ public class MovementControlScript : MonoBehaviour {
             }
             else
             {
+                target = GameManagerScript.RequestTargetPosition();
                 inRange = false;
+                if (speed < 20)
+                    Accelerate(5);
             }
 
             ShouldMove();

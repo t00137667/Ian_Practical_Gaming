@@ -90,7 +90,9 @@ public class ShieldHealth : MonoBehaviour {
             Debug.Log("Ship Destroyed");
             health = 0;
             GetComponentInParent<ShieldControl>().Destroyed();
-            
+
         }
+        else
+            GetComponentInParent<ShieldControl>().PlayHit();
     }
 }

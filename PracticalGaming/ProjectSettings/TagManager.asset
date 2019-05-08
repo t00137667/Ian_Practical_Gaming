@@ -9,6 +9,8 @@ TagManager:
   - PlayerProjectile
   - PlayerShield
   - TargetObjective
+  - Score
+  - Speed
   layers:
   - Default
   - TransparentFX
